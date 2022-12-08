@@ -1,0 +1,65 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/jupyter-datascience-notebooks
+{
+	"name": "Custom dev-container (VSCode)",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	// "runArgs": ["--env-file",".env"],
+	
+	// Forward Jupyter port locally
+	"forwardPorts": [8888],
+	"portsAttributes": {
+		"8888": {
+			"label": "Jupyter",
+			"requireLocalPort": true,
+			"onAutoForward": "ignore"
+		}
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+
+				},
+				"extensions": [
+					"ms-python.python",
+					"redhat.vscode-yaml",
+					"ms-vscode.makefile-tools",
+					"bungcip.better-toml",
+					"GrapeCity.gc-excelviewer",
+					"eamodio.gitlens"
+				]
+			},
+			
+			// // Add the IDs of extensions you want installed when the container is created.
+			// "extensions": [
+			// 	"ms-python.python",
+			// 	"ms-toolsai.jupyter",
+			// 	"yzhang.markdown-all-in-one",
+			// 	"ms-azuretools.vscode-docker",
+			// 	"ms-vscode.makefile-tools"
+			// ]
+		
+	},
+
+	// extension caching
+	"mounts": [
+		"source=extension_cache,target=/root/.vscode-server/extensions,type=volume",
+		"source=${env:HOME}${env:USERPROFILE}/.aws,target=/root/.aws,type=bind"
+	],
+
+	// Make docker cli available in container
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {
+			"version": "latest"
+		}
+	},
+
+	// Install src package
+	// "onCreateCommand": ["pip", "install", "-e", ".[all]"]
+}

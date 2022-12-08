@@ -1,0 +1,12 @@
+# FROM apache/airflow:2.5.0
+FROM apache/airflow:2.5.0-python3.9
+
+USER root
+RUN apt-get update
+RUN apt-get install -y git
+USER airflow
+
+
+COPY requirements_airflow.txt /requirements.txt
+
+RUN pip install --no-cache-dir -r /requirements.txt

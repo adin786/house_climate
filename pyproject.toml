@@ -1,0 +1,6 @@
+[tool.pytest.ini_options]
+markers = [
+    "extract",
+    "transform",
+]
+addopts = "-o log_cli=true"

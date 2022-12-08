@@ -1,0 +1,2326 @@
+{
+    "callForHeat": {
+        "dataIntervals": [
+            {
+                "from": "2022-08-14T22:45:00.000Z",
+                "to": "2022-08-15T23:15:00.000Z",
+                "value": "NONE"
+            }
+        ],
+        "timeSeriesType": "dataIntervals",
+        "valueType": "callForHeat"
+    },
+    "hoursInDay": 24,
+    "interval": {
+        "from": "2022-08-14T22:45:00.000Z",
+        "to": "2022-08-15T23:15:00.000Z"
+    },
+    "measuredData": {
+        "humidity": {
+            "dataPoints": [
+                {
+                    "timestamp": "2022-08-14T22:45:00.000Z",
+                    "value": 0.593
+                },
+                {
+                    "timestamp": "2022-08-14T23:00:00.000Z",
+                    "value": 0.617
+                },
+                {
+                    "timestamp": "2022-08-14T23:15:00.000Z",
+                    "value": 0.615
+                },
+                {
+                    "timestamp": "2022-08-14T23:30:00.000Z",
+                    "value": 0.617
+                },
+                {
+                    "timestamp": "2022-08-14T23:45:00.000Z",
+                    "value": 0.641
+                },
+                {
+                    "timestamp": "2022-08-15T00:00:00.000Z",
+                    "value": 0.617
+                },
+                {
+                    "timestamp": "2022-08-15T00:15:00.000Z",
+                    "value": 0.619
+                },
+                {
+                    "timestamp": "2022-08-15T00:30:00.000Z",
+                    "value": 0.622
+                },
+                {
+                    "timestamp": "2022-08-15T00:45:00.000Z",
+                    "value": 0.624
+                },
+                {
+                    "timestamp": "2022-08-15T01:00:00.000Z",
+                    "value": 0.624
+                },
+                {
+                    "timestamp": "2022-08-15T01:15:00.000Z",
+                    "value": 0.626
+                },
+                {
+                    "timestamp": "2022-08-15T01:30:00.000Z",
+                    "value": 0.628
+                },
+                {
+                    "timestamp": "2022-08-15T01:45:00.000Z",
+                    "value": 0.63
+                },
+                {
+                    "timestamp": "2022-08-15T02:00:00.000Z",
+                    "value": 0.631
+                },
+                {
+                    "timestamp": "2022-08-15T02:15:00.000Z",
+                    "value": 0.632
+                },
+                {
+                    "timestamp": "2022-08-15T02:30:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T02:45:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T03:00:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T03:15:00.000Z",
+                    "value": 0.637
+                },
+                {
+                    "timestamp": "2022-08-15T03:30:00.000Z",
+                    "value": 0.637
+                },
+                {
+                    "timestamp": "2022-08-15T03:45:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T04:00:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T04:15:00.000Z",
+                    "value": 0.639
+                },
+                {
+                    "timestamp": "2022-08-15T04:30:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T04:45:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T05:00:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T05:15:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T05:30:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T05:45:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T06:00:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T06:15:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T06:30:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T06:45:00.000Z",
+                    "value": 0.642
+                },
+                {
+                    "timestamp": "2022-08-15T07:00:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T07:15:00.000Z",
+                    "value": 0.643
+                },
+                {
+                    "timestamp": "2022-08-15T07:30:00.000Z",
+                    "value": 0.643
+                },
+                {
+                    "timestamp": "2022-08-15T07:45:00.000Z",
+                    "value": 0.642
+                },
+                {
+                    "timestamp": "2022-08-15T08:00:00.000Z",
+                    "value": 0.642
+                },
+                {
+                    "timestamp": "2022-08-15T08:15:00.000Z",
+                    "value": 0.641
+                },
+                {
+                    "timestamp": "2022-08-15T08:30:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T08:45:00.000Z",
+                    "value": 0.641
+                },
+                {
+                    "timestamp": "2022-08-15T09:00:00.000Z",
+                    "value": 0.641
+                },
+                {
+                    "timestamp": "2022-08-15T09:15:00.000Z",
+                    "value": 0.641
+                },
+                {
+                    "timestamp": "2022-08-15T09:30:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T09:45:00.000Z",
+                    "value": 0.639
+                },
+                {
+                    "timestamp": "2022-08-15T10:00:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T10:15:00.000Z",
+                    "value": 0.637
+                },
+                {
+                    "timestamp": "2022-08-15T10:30:00.000Z",
+                    "value": 0.637
+                },
+                {
+                    "timestamp": "2022-08-15T10:45:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T11:00:00.000Z",
+                    "value": 0.636
+                },
+                {
+                    "timestamp": "2022-08-15T11:15:00.000Z",
+                    "value": 0.644
+                },
+                {
+                    "timestamp": "2022-08-15T11:30:00.000Z",
+                    "value": 0.642
+                },
+                {
+                    "timestamp": "2022-08-15T11:45:00.000Z",
+                    "value": 0.642
+                },
+                {
+                    "timestamp": "2022-08-15T12:00:00.000Z",
+                    "value": 0.64
+                },
+                {
+                    "timestamp": "2022-08-15T12:15:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T12:30:00.000Z",
+                    "value": 0.636
+                },
+                {
+                    "timestamp": "2022-08-15T12:45:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T13:00:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T13:15:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T13:30:00.000Z",
+                    "value": 0.633
+                },
+                {
+                    "timestamp": "2022-08-15T13:45:00.000Z",
+                    "value": 0.632
+                },
+                {
+                    "timestamp": "2022-08-15T14:00:00.000Z",
+                    "value": 0.631
+                },
+                {
+                    "timestamp": "2022-08-15T14:15:00.000Z",
+                    "value": 0.63
+                },
+                {
+                    "timestamp": "2022-08-15T14:30:00.000Z",
+                    "value": 0.629
+                },
+                {
+                    "timestamp": "2022-08-15T14:45:00.000Z",
+                    "value": 0.629
+                },
+                {
+                    "timestamp": "2022-08-15T15:00:00.000Z",
+                    "value": 0.628
+                },
+                {
+                    "timestamp": "2022-08-15T15:15:00.000Z",
+                    "value": 0.627
+                },
+                {
+                    "timestamp": "2022-08-15T15:30:00.000Z",
+                    "value": 0.627
+                },
+                {
+                    "timestamp": "2022-08-15T15:45:00.000Z",
+                    "value": 0.626
+                },
+                {
+                    "timestamp": "2022-08-15T16:00:00.000Z",
+                    "value": 0.625
+                },
+                {
+                    "timestamp": "2022-08-15T16:15:00.000Z",
+                    "value": 0.625
+                },
+                {
+                    "timestamp": "2022-08-15T16:30:00.000Z",
+                    "value": 0.625
+                },
+                {
+                    "timestamp": "2022-08-15T16:45:00.000Z",
+                    "value": 0.624
+                },
+                {
+                    "timestamp": "2022-08-15T17:00:00.000Z",
+                    "value": 0.623
+                },
+                {
+                    "timestamp": "2022-08-15T17:15:00.000Z",
+                    "value": 0.623
+                },
+                {
+                    "timestamp": "2022-08-15T17:30:00.000Z",
+                    "value": 0.623
+                },
+                {
+                    "timestamp": "2022-08-15T17:45:00.000Z",
+                    "value": 0.622
+                },
+                {
+                    "timestamp": "2022-08-15T18:00:00.000Z",
+                    "value": 0.622
+                },
+                {
+                    "timestamp": "2022-08-15T18:15:00.000Z",
+                    "value": 0.621
+                },
+                {
+                    "timestamp": "2022-08-15T18:30:00.000Z",
+                    "value": 0.625
+                },
+                {
+                    "timestamp": "2022-08-15T18:45:00.000Z",
+                    "value": 0.628
+                },
+                {
+                    "timestamp": "2022-08-15T19:00:00.000Z",
+                    "value": 0.633
+                },
+                {
+                    "timestamp": "2022-08-15T19:15:00.000Z",
+                    "value": 0.632
+                },
+                {
+                    "timestamp": "2022-08-15T19:30:00.000Z",
+                    "value": 0.638
+                },
+                {
+                    "timestamp": "2022-08-15T19:45:00.000Z",
+                    "value": 0.633
+                },
+                {
+                    "timestamp": "2022-08-15T20:00:00.000Z",
+                    "value": 0.633
+                },
+                {
+                    "timestamp": "2022-08-15T20:15:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T20:30:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T20:45:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T21:00:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T21:15:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T21:30:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T21:45:00.000Z",
+                    "value": 0.633
+                },
+                {
+                    "timestamp": "2022-08-15T22:00:00.000Z",
+                    "value": 0.634
+                },
+                {
+                    "timestamp": "2022-08-15T22:15:00.000Z",
+                    "value": 0.636
+                },
+                {
+                    "timestamp": "2022-08-15T22:30:00.000Z",
+                    "value": 0.636
+                },
+                {
+                    "timestamp": "2022-08-15T22:45:00.000Z",
+                    "value": 0.636
+                },
+                {
+                    "timestamp": "2022-08-15T23:00:00.000Z",
+                    "value": 0.635
+                },
+                {
+                    "timestamp": "2022-08-15T23:15:00.000Z",
+                    "value": 0.639
+                }
+            ],
+            "max": 0.644,
+            "min": 0.593,
+            "percentageUnit": "UNIT_INTERVAL",
+            "timeSeriesType": "dataPoints",
+            "valueType": "percentage"
+        },
+        "insideTemperature": {
+            "dataPoints": [
+                {
+                    "timestamp": "2022-08-14T22:45:00.000Z",
+                    "value": {
+                        "celsius": 25.23,
+                        "fahrenheit": 77.41
+                    }
+                },
+                {
+                    "timestamp": "2022-08-14T23:00:00.000Z",
+                    "value": {
+                        "celsius": 25.22,
+                        "fahrenheit": 77.4
+                    }
+                },
+                {
+                    "timestamp": "2022-08-14T23:15:00.000Z",
+                    "value": {
+                        "celsius": 24.99,
+                        "fahrenheit": 76.98
+                    }
+                },
+                {
+                    "timestamp": "2022-08-14T23:30:00.000Z",
+                    "value": {
+                        "celsius": 24.8,
+                        "fahrenheit": 76.64
+                    }
+                },
+                {
+                    "timestamp": "2022-08-14T23:45:00.000Z",
+                    "value": {
+                        "celsius": 24.59,
+                        "fahrenheit": 76.26
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T00:00:00.000Z",
+                    "value": {
+                        "celsius": 24.56,
+                        "fahrenheit": 76.21
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T00:15:00.000Z",
+                    "value": {
+                        "celsius": 24.54,
+                        "fahrenheit": 76.17
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T00:30:00.000Z",
+                    "value": {
+                        "celsius": 24.47,
+                        "fahrenheit": 76.05
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T00:45:00.000Z",
+                    "value": {
+                        "celsius": 24.46,
+                        "fahrenheit": 76.03
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T01:00:00.000Z",
+                    "value": {
+                        "celsius": 24.46,
+                        "fahrenheit": 76.03
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T01:15:00.000Z",
+                    "value": {
+                        "celsius": 24.43,
+                        "fahrenheit": 75.97
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T01:30:00.000Z",
+                    "value": {
+                        "celsius": 24.42,
+                        "fahrenheit": 75.96
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T01:45:00.000Z",
+                    "value": {
+                        "celsius": 24.39,
+                        "fahrenheit": 75.9
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T02:00:00.000Z",
+                    "value": {
+                        "celsius": 24.37,
+                        "fahrenheit": 75.87
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T02:15:00.000Z",
+                    "value": {
+                        "celsius": 24.35,
+                        "fahrenheit": 75.83
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T02:30:00.000Z",
+                    "value": {
+                        "celsius": 24.31,
+                        "fahrenheit": 75.76
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T02:45:00.000Z",
+                    "value": {
+                        "celsius": 24.27,
+                        "fahrenheit": 75.69
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T03:00:00.000Z",
+                    "value": {
+                        "celsius": 24.27,
+                        "fahrenheit": 75.69
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T03:15:00.000Z",
+                    "value": {
+                        "celsius": 24.23,
+                        "fahrenheit": 75.61
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T03:30:00.000Z",
+                    "value": {
+                        "celsius": 24.19,
+                        "fahrenheit": 75.54
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T03:45:00.000Z",
+                    "value": {
+                        "celsius": 24.17,
+                        "fahrenheit": 75.51
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T04:00:00.000Z",
+                    "value": {
+                        "celsius": 24.15,
+                        "fahrenheit": 75.47
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T04:15:00.000Z",
+                    "value": {
+                        "celsius": 24.11,
+                        "fahrenheit": 75.4
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T04:30:00.000Z",
+                    "value": {
+                        "celsius": 24.1,
+                        "fahrenheit": 75.38
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T04:45:00.000Z",
+                    "value": {
+                        "celsius": 24.08,
+                        "fahrenheit": 75.34
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T05:00:00.000Z",
+                    "value": {
+                        "celsius": 24.08,
+                        "fahrenheit": 75.34
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T05:15:00.000Z",
+                    "value": {
+                        "celsius": 24.03,
+                        "fahrenheit": 75.25
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T05:30:00.000Z",
+                    "value": {
+                        "celsius": 23.98,
+                        "fahrenheit": 75.16
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T05:45:00.000Z",
+                    "value": {
+                        "celsius": 23.98,
+                        "fahrenheit": 75.16
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T06:00:00.000Z",
+                    "value": {
+                        "celsius": 23.93,
+                        "fahrenheit": 75.07
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T06:15:00.000Z",
+                    "value": {
+                        "celsius": 23.93,
+                        "fahrenheit": 75.07
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T06:30:00.000Z",
+                    "value": {
+                        "celsius": 23.92,
+                        "fahrenheit": 75.06
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T06:45:00.000Z",
+                    "value": {
+                        "celsius": 24.07,
+                        "fahrenheit": 75.33
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T07:00:00.000Z",
+                    "value": {
+                        "celsius": 24.01,
+                        "fahrenheit": 75.22
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T07:15:00.000Z",
+                    "value": {
+                        "celsius": 24.08,
+                        "fahrenheit": 75.34
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T07:30:00.000Z",
+                    "value": {
+                        "celsius": 24.08,
+                        "fahrenheit": 75.34
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T07:45:00.000Z",
+                    "value": {
+                        "celsius": 23.89,
+                        "fahrenheit": 75.0
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T08:00:00.000Z",
+                    "value": {
+                        "celsius": 23.87,
+                        "fahrenheit": 74.97
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T08:15:00.000Z",
+                    "value": {
+                        "celsius": 23.85,
+                        "fahrenheit": 74.93
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T08:30:00.000Z",
+                    "value": {
+                        "celsius": 23.82,
+                        "fahrenheit": 74.88
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T08:45:00.000Z",
+                    "value": {
+                        "celsius": 23.85,
+                        "fahrenheit": 74.93
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T09:00:00.000Z",
+                    "value": {
+                        "celsius": 23.79,
+                        "fahrenheit": 74.82
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T09:15:00.000Z",
+                    "value": {
+                        "celsius": 23.79,
+                        "fahrenheit": 74.82
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T09:30:00.000Z",
+                    "value": {
+                        "celsius": 23.76,
+                        "fahrenheit": 74.77
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T09:45:00.000Z",
+                    "value": {
+                        "celsius": 23.78,
+                        "fahrenheit": 74.8
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T10:00:00.000Z",
+                    "value": {
+                        "celsius": 23.75,
+                        "fahrenheit": 74.75
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T10:15:00.000Z",
+                    "value": {
+                        "celsius": 23.79,
+                        "fahrenheit": 74.82
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T10:30:00.000Z",
+                    "value": {
+                        "celsius": 23.81,
+                        "fahrenheit": 74.86
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T10:45:00.000Z",
+                    "value": {
+                        "celsius": 23.86,
+                        "fahrenheit": 74.95
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T11:00:00.000Z",
+                    "value": {
+                        "celsius": 23.85,
+                        "fahrenheit": 74.93
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T11:15:00.000Z",
+                    "value": {
+                        "celsius": 23.94,
+                        "fahrenheit": 75.09
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T11:30:00.000Z",
+                    "value": {
+                        "celsius": 24.01,
+                        "fahrenheit": 75.22
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T11:45:00.000Z",
+                    "value": {
+                        "celsius": 24.01,
+                        "fahrenheit": 75.22
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T12:00:00.000Z",
+                    "value": {
+                        "celsius": 23.97,
+                        "fahrenheit": 75.15
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T12:15:00.000Z",
+                    "value": {
+                        "celsius": 23.95,
+                        "fahrenheit": 75.11
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T12:30:00.000Z",
+                    "value": {
+                        "celsius": 23.94,
+                        "fahrenheit": 75.09
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T12:45:00.000Z",
+                    "value": {
+                        "celsius": 23.93,
+                        "fahrenheit": 75.07
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T13:00:00.000Z",
+                    "value": {
+                        "celsius": 23.92,
+                        "fahrenheit": 75.06
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T13:15:00.000Z",
+                    "value": {
+                        "celsius": 23.92,
+                        "fahrenheit": 75.06
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T13:30:00.000Z",
+                    "value": {
+                        "celsius": 23.91,
+                        "fahrenheit": 75.04
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T13:45:00.000Z",
+                    "value": {
+                        "celsius": 23.89,
+                        "fahrenheit": 75.0
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T14:00:00.000Z",
+                    "value": {
+                        "celsius": 23.88,
+                        "fahrenheit": 74.98
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T14:15:00.000Z",
+                    "value": {
+                        "celsius": 23.87,
+                        "fahrenheit": 74.97
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T14:30:00.000Z",
+                    "value": {
+                        "celsius": 23.85,
+                        "fahrenheit": 74.93
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T14:45:00.000Z",
+                    "value": {
+                        "celsius": 23.85,
+                        "fahrenheit": 74.93
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T15:00:00.000Z",
+                    "value": {
+                        "celsius": 23.83,
+                        "fahrenheit": 74.89
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T15:15:00.000Z",
+                    "value": {
+                        "celsius": 23.83,
+                        "fahrenheit": 74.89
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T15:30:00.000Z",
+                    "value": {
+                        "celsius": 23.81,
+                        "fahrenheit": 74.86
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T15:45:00.000Z",
+                    "value": {
+                        "celsius": 23.8,
+                        "fahrenheit": 74.84
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T16:00:00.000Z",
+                    "value": {
+                        "celsius": 23.79,
+                        "fahrenheit": 74.82
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T16:15:00.000Z",
+                    "value": {
+                        "celsius": 23.79,
+                        "fahrenheit": 74.82
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T16:30:00.000Z",
+                    "value": {
+                        "celsius": 23.78,
+                        "fahrenheit": 74.8
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T16:45:00.000Z",
+                    "value": {
+                        "celsius": 23.77,
+                        "fahrenheit": 74.79
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T17:00:00.000Z",
+                    "value": {
+                        "celsius": 23.75,
+                        "fahrenheit": 74.75
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T17:15:00.000Z",
+                    "value": {
+                        "celsius": 23.73,
+                        "fahrenheit": 74.71
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T17:30:00.000Z",
+                    "value": {
+                        "celsius": 23.72,
+                        "fahrenheit": 74.7
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T17:45:00.000Z",
+                    "value": {
+                        "celsius": 23.68,
+                        "fahrenheit": 74.62
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T18:00:00.000Z",
+                    "value": {
+                        "celsius": 23.68,
+                        "fahrenheit": 74.62
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T18:15:00.000Z",
+                    "value": {
+                        "celsius": 23.66,
+                        "fahrenheit": 74.59
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T18:30:00.000Z",
+                    "value": {
+                        "celsius": 23.65,
+                        "fahrenheit": 74.57
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T18:45:00.000Z",
+                    "value": {
+                        "celsius": 23.64,
+                        "fahrenheit": 74.55
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T19:00:00.000Z",
+                    "value": {
+                        "celsius": 23.65,
+                        "fahrenheit": 74.57
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T19:15:00.000Z",
+                    "value": {
+                        "celsius": 23.62,
+                        "fahrenheit": 74.52
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T19:30:00.000Z",
+                    "value": {
+                        "celsius": 23.69,
+                        "fahrenheit": 74.64
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T19:45:00.000Z",
+                    "value": {
+                        "celsius": 23.66,
+                        "fahrenheit": 74.59
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T20:00:00.000Z",
+                    "value": {
+                        "celsius": 23.66,
+                        "fahrenheit": 74.59
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T20:15:00.000Z",
+                    "value": {
+                        "celsius": 23.64,
+                        "fahrenheit": 74.55
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T20:30:00.000Z",
+                    "value": {
+                        "celsius": 23.65,
+                        "fahrenheit": 74.57
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T20:45:00.000Z",
+                    "value": {
+                        "celsius": 23.63,
+                        "fahrenheit": 74.53
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T21:00:00.000Z",
+                    "value": {
+                        "celsius": 23.62,
+                        "fahrenheit": 74.52
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T21:15:00.000Z",
+                    "value": {
+                        "celsius": 23.62,
+                        "fahrenheit": 74.52
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T21:30:00.000Z",
+                    "value": {
+                        "celsius": 23.54,
+                        "fahrenheit": 74.37
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T21:45:00.000Z",
+                    "value": {
+                        "celsius": 23.51,
+                        "fahrenheit": 74.32
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T22:00:00.000Z",
+                    "value": {
+                        "celsius": 23.51,
+                        "fahrenheit": 74.32
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T22:15:00.000Z",
+                    "value": {
+                        "celsius": 23.56,
+                        "fahrenheit": 74.41
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T22:30:00.000Z",
+                    "value": {
+                        "celsius": 23.56,
+                        "fahrenheit": 74.41
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T22:45:00.000Z",
+                    "value": {
+                        "celsius": 23.56,
+                        "fahrenheit": 74.41
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T23:00:00.000Z",
+                    "value": {
+                        "celsius": 23.59,
+                        "fahrenheit": 74.46
+                    }
+                },
+                {
+                    "timestamp": "2022-08-15T23:15:00.000Z",
+                    "value": {
+                        "celsius": 23.5,
+                        "fahrenheit": 74.3
+                    }
+                }
+            ],
+            "max": {
+                "celsius": 25.23,
+                "fahrenheit": 77.41
+            },
+            "min": {
+                "celsius": 23.5,
+                "fahrenheit": 74.3
+            },
+            "timeSeriesType": "dataPoints",
+            "valueType": "temperature"
+        },
+        "measuringDeviceConnected": {
+            "dataIntervals": [
+                {
+                    "from": "2022-08-14T22:45:00.000Z",
+                    "to": "2022-08-15T23:15:00.000Z",
+                    "value": true
+                }
+            ],
+            "timeSeriesType": "dataIntervals",
+            "valueType": "boolean"
+        }
+    },
+    "settings": {
+        "dataIntervals": [
+            {
+                "from": "2022-08-14T22:45:00.000Z",
+                "to": "2022-08-15T23:15:00.000Z",
+                "value": {
+                    "power": "OFF",
+                    "temperature": null,
+                    "type": "HEATING"
+                }
+            }
+        ],
+        "timeSeriesType": "dataIntervals",
+        "valueType": "heatingSetting"
+    },
+    "stripes": {
+        "dataIntervals": [
+            {
+                "from": "2022-08-14T22:45:00.000Z",
+                "to": "2022-08-15T23:15:00.000Z",
+                "value": {
+                    "setting": {
+                        "power": "OFF",
+                        "temperature": null,
+                        "type": "HEATING"
+                    },
+                    "stripeType": "OVERLAY_ACTIVE"
+                }
+            }
+        ],
+        "timeSeriesType": "dataIntervals",
+        "valueType": "stripes"
+    },
+    "weather": {
+        "condition": {
+            "dataIntervals": [
+                {
+                    "from": "2022-08-14T22:45:00.000Z",
+                    "to": "2022-08-14T22:58:41.793Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 17.43,
+                            "fahrenheit": 63.37
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-14T22:58:41.793Z",
+                    "to": "2022-08-14T23:13:41.469Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 17.43,
+                            "fahrenheit": 63.37
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-14T23:13:41.469Z",
+                    "to": "2022-08-14T23:28:41.595Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.89,
+                            "fahrenheit": 62.4
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-14T23:28:41.595Z",
+                    "to": "2022-08-14T23:43:40.993Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.89,
+                            "fahrenheit": 62.4
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-14T23:43:40.993Z",
+                    "to": "2022-08-14T23:58:41.629Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.89,
+                            "fahrenheit": 62.4
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-14T23:58:41.629Z",
+                    "to": "2022-08-15T00:13:41.799Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.89,
+                            "fahrenheit": 62.4
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T00:13:41.799Z",
+                    "to": "2022-08-15T00:28:40.733Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T00:28:40.733Z",
+                    "to": "2022-08-15T00:43:41.349Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T00:43:41.349Z",
+                    "to": "2022-08-15T00:58:41.729Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T00:58:41.729Z",
+                    "to": "2022-08-15T01:13:40.970Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T01:13:40.970Z",
+                    "to": "2022-08-15T01:28:40.796Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.39,
+                            "fahrenheit": 61.5
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T01:28:40.796Z",
+                    "to": "2022-08-15T01:43:40.959Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.39,
+                            "fahrenheit": 61.5
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T01:43:40.959Z",
+                    "to": "2022-08-15T01:58:41.089Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.39,
+                            "fahrenheit": 61.5
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T01:58:41.089Z",
+                    "to": "2022-08-15T02:13:42.765Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.39,
+                            "fahrenheit": 61.5
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T02:13:42.765Z",
+                    "to": "2022-08-15T02:28:40.961Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.02,
+                            "fahrenheit": 60.84
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T02:28:40.961Z",
+                    "to": "2022-08-15T02:43:41.118Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.02,
+                            "fahrenheit": 60.84
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T02:43:41.118Z",
+                    "to": "2022-08-15T02:58:40.995Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.02,
+                            "fahrenheit": 60.84
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T02:58:40.995Z",
+                    "to": "2022-08-15T03:13:40.976Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.02,
+                            "fahrenheit": 60.84
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T03:13:40.976Z",
+                    "to": "2022-08-15T03:28:41.800Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.83,
+                            "fahrenheit": 60.49
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T03:28:41.800Z",
+                    "to": "2022-08-15T03:43:40.808Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.83,
+                            "fahrenheit": 60.49
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T03:43:40.808Z",
+                    "to": "2022-08-15T03:58:42.986Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.83,
+                            "fahrenheit": 60.49
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T03:58:42.986Z",
+                    "to": "2022-08-15T04:13:41.460Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.83,
+                            "fahrenheit": 60.49
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T04:13:41.460Z",
+                    "to": "2022-08-15T04:28:41.278Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.46,
+                            "fahrenheit": 59.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T04:28:41.278Z",
+                    "to": "2022-08-15T04:43:43.867Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.46,
+                            "fahrenheit": 59.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T04:43:43.867Z",
+                    "to": "2022-08-15T04:58:41.477Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.46,
+                            "fahrenheit": 59.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T04:58:41.477Z",
+                    "to": "2022-08-15T05:13:40.539Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.46,
+                            "fahrenheit": 59.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T05:13:40.539Z",
+                    "to": "2022-08-15T05:28:41.514Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T05:28:41.514Z",
+                    "to": "2022-08-15T05:43:41.228Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T05:43:41.228Z",
+                    "to": "2022-08-15T05:58:42.018Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T05:58:42.018Z",
+                    "to": "2022-08-15T06:13:41.446Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T06:13:41.446Z",
+                    "to": "2022-08-15T06:28:41.889Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.56,
+                            "fahrenheit": 60.01
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T06:28:41.889Z",
+                    "to": "2022-08-15T06:43:42.906Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.56,
+                            "fahrenheit": 60.01
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T06:43:42.906Z",
+                    "to": "2022-08-15T06:58:40.769Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.56,
+                            "fahrenheit": 60.01
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T06:58:40.769Z",
+                    "to": "2022-08-15T07:13:42.337Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.56,
+                            "fahrenheit": 60.01
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T07:13:42.337Z",
+                    "to": "2022-08-15T07:28:41.435Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.65,
+                            "fahrenheit": 60.17
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T07:28:41.435Z",
+                    "to": "2022-08-15T07:43:41.567Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.65,
+                            "fahrenheit": 60.17
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T07:43:41.567Z",
+                    "to": "2022-08-15T07:58:44.427Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.65,
+                            "fahrenheit": 60.17
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T07:58:44.427Z",
+                    "to": "2022-08-15T08:13:41.627Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 15.65,
+                            "fahrenheit": 60.17
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T08:13:41.627Z",
+                    "to": "2022-08-15T08:28:44.378Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 15.71,
+                            "fahrenheit": 60.28
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T08:28:44.378Z",
+                    "to": "2022-08-15T08:43:42.919Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 15.71,
+                            "fahrenheit": 60.28
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T08:43:42.919Z",
+                    "to": "2022-08-15T08:58:42.347Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 15.71,
+                            "fahrenheit": 60.28
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T08:58:42.347Z",
+                    "to": "2022-08-15T09:13:41.935Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 15.71,
+                            "fahrenheit": 60.28
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T09:13:41.935Z",
+                    "to": "2022-08-15T09:28:42.364Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 15.7,
+                            "fahrenheit": 60.26
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T09:28:42.364Z",
+                    "to": "2022-08-15T09:43:41.648Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 15.7,
+                            "fahrenheit": 60.26
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T09:43:41.648Z",
+                    "to": "2022-08-15T09:58:41.599Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 15.7,
+                            "fahrenheit": 60.26
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T09:58:41.599Z",
+                    "to": "2022-08-15T10:13:41.664Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 15.7,
+                            "fahrenheit": 60.26
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T10:13:41.664Z",
+                    "to": "2022-08-15T10:28:41.211Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.23,
+                            "fahrenheit": 61.21
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T10:28:41.211Z",
+                    "to": "2022-08-15T10:43:41.884Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.23,
+                            "fahrenheit": 61.21
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T10:43:41.884Z",
+                    "to": "2022-08-15T10:58:41.859Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.23,
+                            "fahrenheit": 61.21
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T10:58:41.859Z",
+                    "to": "2022-08-15T11:13:41.313Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.23,
+                            "fahrenheit": 61.21
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T11:13:41.313Z",
+                    "to": "2022-08-15T11:28:41.382Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.78,
+                            "fahrenheit": 62.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T11:28:41.382Z",
+                    "to": "2022-08-15T11:43:43.597Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.78,
+                            "fahrenheit": 62.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T11:43:43.597Z",
+                    "to": "2022-08-15T11:58:41.663Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.78,
+                            "fahrenheit": 62.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T11:58:41.663Z",
+                    "to": "2022-08-15T12:13:41.649Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.78,
+                            "fahrenheit": 62.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T12:13:41.649Z",
+                    "to": "2022-08-15T12:28:42.373Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.15,
+                            "fahrenheit": 62.87
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T12:28:42.373Z",
+                    "to": "2022-08-15T12:43:41.502Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.15,
+                            "fahrenheit": 62.87
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T12:43:41.502Z",
+                    "to": "2022-08-15T12:58:42.095Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.15,
+                            "fahrenheit": 62.87
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T12:58:42.095Z",
+                    "to": "2022-08-15T13:13:41.372Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.15,
+                            "fahrenheit": 62.87
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T13:13:41.372Z",
+                    "to": "2022-08-15T13:28:42.580Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.13,
+                            "fahrenheit": 62.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T13:28:42.580Z",
+                    "to": "2022-08-15T13:43:41.917Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.13,
+                            "fahrenheit": 62.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T13:43:41.917Z",
+                    "to": "2022-08-15T13:58:40.893Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.13,
+                            "fahrenheit": 62.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T13:58:40.893Z",
+                    "to": "2022-08-15T14:13:41.465Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 17.13,
+                            "fahrenheit": 62.83
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T14:13:41.465Z",
+                    "to": "2022-08-15T14:28:41.182Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T14:28:41.182Z",
+                    "to": "2022-08-15T14:43:42.833Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T14:43:42.833Z",
+                    "to": "2022-08-15T14:58:42.536Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T14:58:42.536Z",
+                    "to": "2022-08-15T15:13:41.739Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T15:13:41.739Z",
+                    "to": "2022-08-15T15:28:43.772Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T15:28:43.772Z",
+                    "to": "2022-08-15T15:43:41.477Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T15:43:41.477Z",
+                    "to": "2022-08-15T15:58:41.584Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T15:58:41.584Z",
+                    "to": "2022-08-15T16:13:41.803Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.7,
+                            "fahrenheit": 62.06
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T16:13:41.803Z",
+                    "to": "2022-08-15T16:28:42.632Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T16:28:42.632Z",
+                    "to": "2022-08-15T16:43:44.159Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T16:43:44.159Z",
+                    "to": "2022-08-15T16:58:41.631Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T16:58:41.631Z",
+                    "to": "2022-08-15T17:13:42.333Z",
+                    "value": {
+                        "state": "SCATTERED_RAIN",
+                        "temperature": {
+                            "celsius": 16.65,
+                            "fahrenheit": 61.97
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T17:13:42.333Z",
+                    "to": "2022-08-15T17:28:41.858Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.63,
+                            "fahrenheit": 61.93
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T17:28:41.858Z",
+                    "to": "2022-08-15T17:43:43.182Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.63,
+                            "fahrenheit": 61.93
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T17:43:43.182Z",
+                    "to": "2022-08-15T17:58:44.416Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.63,
+                            "fahrenheit": 61.93
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T17:58:44.416Z",
+                    "to": "2022-08-15T18:13:42.442Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.63,
+                            "fahrenheit": 61.93
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T18:13:42.442Z",
+                    "to": "2022-08-15T18:28:41.637Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.46,
+                            "fahrenheit": 61.63
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T18:28:41.637Z",
+                    "to": "2022-08-15T18:43:42.507Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.46,
+                            "fahrenheit": 61.63
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T18:43:42.507Z",
+                    "to": "2022-08-15T18:58:42.026Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.46,
+                            "fahrenheit": 61.63
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T18:58:42.026Z",
+                    "to": "2022-08-15T19:13:41.853Z",
+                    "value": {
+                        "state": "CLOUDY",
+                        "temperature": {
+                            "celsius": 16.46,
+                            "fahrenheit": 61.63
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T19:13:41.853Z",
+                    "to": "2022-08-15T19:28:41.479Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 16.22,
+                            "fahrenheit": 61.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T19:28:41.479Z",
+                    "to": "2022-08-15T19:43:42.467Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 16.22,
+                            "fahrenheit": 61.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T19:43:42.467Z",
+                    "to": "2022-08-15T19:58:41.530Z",
+                    "value": {
+                        "state": "RAIN",
+                        "temperature": {
+                            "celsius": 16.22,
+                            "fahrenheit": 61.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T19:58:41.530Z",
+                    "to": "2022-08-15T20:13:41.289Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 16.22,
+                            "fahrenheit": 61.2
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T20:13:41.289Z",
+                    "to": "2022-08-15T20:28:42.514Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.88,
+                            "fahrenheit": 60.58
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T20:28:42.514Z",
+                    "to": "2022-08-15T20:43:43.864Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.88,
+                            "fahrenheit": 60.58
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T20:43:43.864Z",
+                    "to": "2022-08-15T20:58:43.884Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.88,
+                            "fahrenheit": 60.58
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T20:58:43.884Z",
+                    "to": "2022-08-15T21:13:43.045Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.88,
+                            "fahrenheit": 60.58
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T21:13:43.045Z",
+                    "to": "2022-08-15T21:28:41.847Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.58,
+                            "fahrenheit": 60.04
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T21:28:41.847Z",
+                    "to": "2022-08-15T21:43:41.970Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.58,
+                            "fahrenheit": 60.04
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T21:43:41.970Z",
+                    "to": "2022-08-15T21:58:43.484Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.58,
+                            "fahrenheit": 60.04
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T21:58:43.484Z",
+                    "to": "2022-08-15T22:13:40.807Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.58,
+                            "fahrenheit": 60.04
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T22:13:40.807Z",
+                    "to": "2022-08-15T22:28:42.604Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T22:28:42.604Z",
+                    "to": "2022-08-15T22:43:40.660Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T22:43:40.660Z",
+                    "to": "2022-08-15T22:58:44.763Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T22:58:44.763Z",
+                    "to": "2022-08-15T23:13:42.709Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.51,
+                            "fahrenheit": 59.92
+                        }
+                    }
+                },
+                {
+                    "from": "2022-08-15T23:13:42.709Z",
+                    "to": "2022-08-15T23:15:00.000Z",
+                    "value": {
+                        "state": "NIGHT_CLOUDY",
+                        "temperature": {
+                            "celsius": 15.49,
+                            "fahrenheit": 59.88
+                        }
+                    }
+                }
+            ],
+            "timeSeriesType": "dataIntervals",
+            "valueType": "weatherCondition"
+        },
+        "slots": {
+            "slots": {
+                "04:00": {
+                    "state": "NIGHT_CLOUDY",
+                    "temperature": {
+                        "celsius": 16.02,
+                        "fahrenheit": 60.84
+                    }
+                },
+                "08:00": {
+                    "state": "CLOUDY",
+                    "temperature": {
+                        "celsius": 15.56,
+                        "fahrenheit": 60.01
+                    }
+                },
+                "12:00": {
+                    "state": "SCATTERED_RAIN",
+                    "temperature": {
+                        "celsius": 16.23,
+                        "fahrenheit": 61.21
+                    }
+                },
+                "16:00": {
+                    "state": "SCATTERED_RAIN",
+                    "temperature": {
+                        "celsius": 16.7,
+                        "fahrenheit": 62.06
+                    }
+                },
+                "20:00": {
+                    "state": "CLOUDY",
+                    "temperature": {
+                        "celsius": 16.46,
+                        "fahrenheit": 61.63
+                    }
+                }
+            },
+            "timeSeriesType": "slots",
+            "valueType": "weatherCondition"
+        },
+        "sunny": {
+            "dataIntervals": [
+                {
+                    "from": "2022-08-14T22:45:00.000Z",
+                    "to": "2022-08-15T23:15:00.000Z",
+                    "value": false
+                }
+            ],
+            "timeSeriesType": "dataIntervals",
+            "valueType": "boolean"
+        }
+    },
+    "zoneType": "HEATING"
+}

@@ -1,0 +1,6 @@
+sqlalchemy==1.4.44
+libtado==3.5.1
+git+https://github.com/wmalgadey/PyTado.git
+pytest==7.2.0
+pendulum==2.1.2
+apache-airflow==2.5.0
