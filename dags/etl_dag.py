@@ -27,7 +27,7 @@ def etl_dag():
     ### Test DAG
     """
 
-    @task
+    @task(multiple_outputs=True)
     def extract_task(date: str):
         """
         #### Extract data using Tado API
@@ -44,9 +44,9 @@ def etl_dag():
         path = '/opt/airflow/dags/files'
 
         log.debug(f'EXTRACT: execution date: {date}')
-        result, metadata = extract(date, path)
+        result, metadata = extract(path, date)
         log.debug(f'EXTRACT: finished')
-        return result, metadata
+        return {'result': result, 'metadata': metadata}
 
 
     @task
@@ -69,7 +69,7 @@ def etl_dag():
 
     # Define the graph
     extracted = extract_task('{{ ds }}')
-    transformed = transform_task(extracted, '{{ ds }}')
+    transformed = transform_task(extracted['result'], '{{ ds }}', extracted['metadata'])
     load_task(transformed, '{{ ds }}')
 
     # @task(multiple_outputs=True)

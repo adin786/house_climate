@@ -45,7 +45,8 @@ def extract(
     save_path = generate_save_path(path, zone_id, date, suffix='', ext='.json')
     save_path = Path(save_path)
     if save_path.is_file():
-        raise FileExistsError(f"File already exists at {str(save_path)}. Exiting")
+        save_path.unlink()
+        # raise FileExistsError(f"File already exists at {str(save_path)}. Exiting")
 
     # Write file
     logger.debug(f'Saving to disk ({str(save_path)})')
@@ -54,7 +55,7 @@ def extract(
     logger.debug('Saving completed')
 
     metadata = {
-        'extracted_path': save_path,
+        'extracted_path': str(save_path),
         'zone_id': zone_id,
         'date': date,
     }

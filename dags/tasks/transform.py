@@ -17,7 +17,7 @@ def transform(tado_data: dict, date: str, metadata: dict) -> dict:
 
     keys = tado_data.keys()
     zone_id = metadata['zone_id']
-    extracted_path = metadata['extracted_path'] 
+    extracted_path = Path(metadata['extracted_path'])
     days_path = generate_save_path(extracted_path.parent, zone_id, date, ext='.csv', suffix='_days')
     climate_path = generate_save_path(extracted_path.parent, zone_id, date, ext='.csv', suffix='_climate')
 
