@@ -3,7 +3,7 @@ from PyTado.interface import Tado
 from dotenv import load_dotenv
 import logging
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 import json
 import pendulum
 
@@ -21,7 +21,7 @@ class MissingZone:
 def extract(
     path: Union[str, Path], 
     date: str
-) -> dict:
+) -> tuple[dict, dict]:
     logger.info(f'Starting extract func')
 
     t = Tado(os.environ['TADO_USERNAME'], os.environ['TADO_PASSWORD'])
@@ -41,7 +41,9 @@ def extract(
     validate_raw_data(tado_data)
 
     # Make target file path
-    save_path = Path(path) / f'tado_zone{zone_id}_{date}.json'
+    # save_path = Path(path) / f'tado_zone{zone_id}_{date}.json'
+    save_path = generate_save_path(path, zone_id, date, suffix='', ext='.json')
+    save_path = Path(save_path)
     if save_path.is_file():
         raise FileExistsError(f"File already exists at {str(save_path)}. Exiting")
 
@@ -51,7 +53,23 @@ def extract(
     save_path.write_text(json_data, encoding='utf-8')
     logger.debug('Saving completed')
 
-    return tado_data, save_path
+    metadata = {
+        'extracted_path': save_path,
+        'zone_id': zone_id,
+        'date': date,
+    }
+    return tado_data, metadata
+
+
+def generate_save_path(
+    base_path: Union[str, Path], 
+    zone_id: str, 
+    date: str, 
+    ext: str, 
+    suffix: Optional[str] = None
+) -> str:
+    save_path = (Path(base_path) / f'tado_zone{zone_id}_{date}{suffix}').with_suffix(ext)
+    return str(save_path)
 
 
 def validate_raw_data(tado_data: dict):
@@ -71,7 +89,7 @@ def validate_raw_data(tado_data: dict):
         logger.debug(f"{end_date=}")
         logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
         assert delta.in_hours() >= 24
-        
+
     except AssertionError as err:
         logger.error('Tado data failed validation checks')
         raise err

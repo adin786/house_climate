@@ -3,6 +3,8 @@ import json
 import pendulum
 from airflow.decorators import dag, task
 import logging
+from typing import Union
+from pathlib import Path
 
 
 log = logging.getLogger(__name__)
@@ -39,21 +41,21 @@ def etl_dag():
         """
         from tasks.extract import extract
 
-        save_path = '/opt/airflow/dags/files'
+        path = '/opt/airflow/dags/files'
 
         log.debug(f'EXTRACT: execution date: {date}')
-        result = extract(date, save_path)
+        result, metadata = extract(date, path)
         log.debug(f'EXTRACT: finished')
-        return result
+        return result, metadata
 
 
     @task
-    def transform_task(extracted, date: str):
+    def transform_task(extracted, date: str, metadata: dict):
         """#### Transform the data"""
         from tasks.transform import transform
 
         log.debug(f'TRANSFORM: execution date: {date}')
-        transformed = transform(extracted)
+        transformed = transform(extracted, date, metadata)
         log.debug(f'TRANSFORM: finished')
         return transformed
 

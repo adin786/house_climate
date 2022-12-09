@@ -4,3 +4,6 @@ markers = [
     "transform",
 ]
 addopts = "-o log_cli=true"
+testpaths = [
+    "dags"
+]

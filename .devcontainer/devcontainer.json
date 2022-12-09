@@ -33,7 +33,12 @@
 					"bungcip.better-toml",
 					"GrapeCity.gc-excelviewer",
 					"eamodio.gitlens"
-				]
+				],
+				"gitlens.currentLine.enabled": false,
+				"gitlens.hovers.currentLine.over": "line",
+				"gitlens.codeLens.enabled": false,
+				"gitlens.statusBar.enabled": false,
+				"gitlens.hovers.enabled": false
 			},
 			
 			// // Add the IDs of extensions you want installed when the container is created.
