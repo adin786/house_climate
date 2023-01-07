@@ -60,10 +60,8 @@
 
 	// Make docker cli available in container
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:1": {
-			"version": "latest"
-		}
-	},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	}
 
 	// Install src package
 	// "onCreateCommand": ["pip", "install", "-e", ".[all]"]
