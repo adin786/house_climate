@@ -130,3 +130,7 @@ dmypy.json
 
 # airflow
 logs
+
+# Custom
+**/*.csv
+**/*.json
