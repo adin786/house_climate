@@ -21,7 +21,7 @@ def etl_dag():
     ### ETL pipeline for tado api into postgres
     """
 
-    @task(multiple_outputs=True)
+    @task
     def extract_task(date: str):
         """
         #### Extract data using Tado API
@@ -38,19 +38,21 @@ def etl_dag():
         path = "/opt/airflow/dags/files"
 
         logger.debug("EXTRACT: execution date: %s", date)
-        result, metadata = extract(path, date)
+        metadata = extract(path, date)
         logger.debug("EXTRACT: finished")
-        return {"result": result, "metadata": metadata}
+        return metadata
+
 
     @task
-    def transform_task(extracted, date: str, metadata: dict):
+    def transform_task(metadata, date: str):
         """#### Transform the data"""
         from tasks.transform import transform
 
         logger.debug("TRANSFORM: execution date: %s", date)
-        transformed = transform(extracted, date, metadata)
+        metadata_new = transform(metadata, date)
         logger.debug("TRANSFORM: finished")
-        return transformed
+        return metadata_new
+
 
     @task
     def load_task(transformed, date: str):
@@ -59,8 +61,8 @@ def etl_dag():
         print(transformed)
 
     # Define the graph
-    extracted = extract_task("{{ ds }}")
-    transformed = transform_task(extracted["result"], "{{ ds }}", extracted["metadata"])
+    metadata = extract_task("{{ ds }}")
+    transformed = transform_task(metadata, "{{ ds }}")
     load_task(transformed, "{{ ds }}")
 
 

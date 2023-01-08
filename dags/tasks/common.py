@@ -2,6 +2,7 @@ from typing import Optional, Union
 from pathlib import Path
 import logging
 import pendulum
+import json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -20,25 +21,15 @@ def generate_save_path(
     return str(save_path)
 
 
-def validate_raw_data(tado_data: dict):
-    """Run some checks on the tado response"""
-    logger.info("Running tado validation ")
-    try:
-        assert isinstance(tado_data, dict)
+def read_extracted_historic(metadata: dict) -> dict:
+    """Read each historic data file as a generator"""
+    for path in metadata["extracted"]["historic_data"]:
+        path = Path(path)
+        tado_data = json.loads(path.read_text(encoding='utf-8'))
+        yield tado_data
 
-        assert "hoursInDay" in tado_data
-        assert tado_data["hoursInDay"] == 24
 
-        assert "interval" in tado_data
-        start_date = pendulum.parse(tado_data["interval"]["from"])
-        end_date = pendulum.parse(tado_data["interval"]["to"])
-        delta = end_date.diff(start_date)
-        logger.debug(f"{start_date=}")
-        logger.debug(f"{end_date=}")
-        logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
-        assert delta.in_hours() >= 24
-
-    except AssertionError as err:
-        logger.error("Tado data failed validation checks")
-        raise err
-    logger.info("Tado validation passed")
+def read_extracted_zone(metadata: dict) -> list:
+    """Read zone metadatadata file"""
+    path = Path(metadata["extracted"]["zone_data"])
+    return json.loads(path.read_text(encoding='utf-8'))

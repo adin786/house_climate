@@ -3,14 +3,15 @@ import logging
 import os
 import uuid
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
+import shutil
 
 import pandas as pd
 import pendulum
 from dotenv import load_dotenv
 from PyTado.interface import Tado
 from sqlalchemy import create_engine, text
-from tasks.common import generate_save_path, validate_raw_data
+from tasks.common import generate_save_path
 
 
 load_dotenv()
@@ -25,102 +26,130 @@ class MissingZone:
     """Raise if no matching zone found"""
 
 
-def extract(path: Union[str, Path], date: str) -> tuple[dict, dict]:
-    logger.info(f"Starting extract func")
-
-    t = Tado(os.environ["TADO_USERNAME"], os.environ["TADO_PASSWORD"])
-    logger.debug(f"API connected")
-
-    # Request list of zone IDs
-    zones = t.getZones()
-    logger.debug(f'Zones:\n{[z["name"] for z in zones]}')
+def validate_raw_data(tado_data: dict):
+    """Run some checks on the tado response"""
+    logger.info("Running tado validation ")
     try:
-        zone_id = [z["id"] for z in zones if z["name"] == SELECTED_ZONE][0]
-    except IndexError:
-        raise MissingZone("No living room zone")
+        assert isinstance(tado_data, dict)
 
+        assert "hoursInDay" in tado_data
+        assert tado_data["hoursInDay"] == 24
+
+        assert "interval" in tado_data
+        start_date = pendulum.parse(tado_data["interval"]["from"])
+        end_date = pendulum.parse(tado_data["interval"]["to"])
+        delta = end_date.diff(start_date)
+        logger.debug(f"{start_date=}")
+        logger.debug(f"{end_date=}")
+        logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
+        assert delta.in_hours() >= 24
+
+    except AssertionError as err:
+        logger.error("Tado data failed validation checks")
+        raise err
+    logger.info("Tado validation passed")
+
+
+def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> dict:
+    """Extracts one zone from Tado API
+    
+    Args:
+        t (Tado): Connected tado API session object.
+        zones (list): list of zone metadata dicts from getZones request.
+        zone_id (int): 
+
+    Returns:
+        dict: Response from getHistoric request.
+    """
+    zone_name = get_zone_name(zones, zone_id)
+    logger.debug('Extracting zone id: %s, name: %s', zone_id, zone_name)
     # Get API response for 24hrs data
     tado_data = t.getHistoric(zone_id, date=date)
     logger.debug(f"living_room_data:\n{list(tado_data.keys())}")
     validate_raw_data(tado_data)
+    return tado_data
 
+
+def get_zone_name(zones: list, zone_id: int) -> str:
+    """Get zone_name from zone_id"""
+    zone_names = [z["name"] for z in zones if z["id"] == zone_id]
+    if len(zone_names) == 0:
+        raise MissingZone(f'Did not find zone name for zone_id: {zone_id}')
+    elif len(zone_names) > 1:
+        raise MissingZone(f'More than one zone name for zone_id: {zone_id} -> {zone_names}')
+    return zone_names[0]
+
+
+def clear_files_in_dir(path: Union[str, Path]):
+    path = Path(path)
+    files_in_dir = [p.name for p in path.glob('*')]
+    num_files = len(files_in_dir)
+    logger.info('Deleting (%s) files in dir: %s', num_files, files_in_dir)
+    shutil.rmtree(path)
+    logger.debug('Files deleted')
+
+
+def save_historic_data(tado_data: dict, path: str, date: str, zone_id: int) -> None:
+    """Save result to disk"""
     # Make target file path
-    save_path = generate_save_path(path, zone_id, date, suffix="", ext=".json")
-    save_path = Path(save_path)
-    if save_path.is_file():
-        # Delete if already existing file on disk
-        save_path.unlink()
-
+    historic_path = Path(generate_save_path(path, zone_id, date, suffix="_historic", ext=".json"))
     # Write file
-    logger.debug(f"Saving to disk ({str(save_path)})")
+    logger.debug("Saving zone_id: %s to path: %s", zone_id, str(historic_path))
     json_data = json.dumps(tado_data, sort_keys=True, indent=4)
-    save_path.write_text(json_data, encoding="utf-8")
+    historic_path.write_text(json_data, encoding="utf-8")
     logger.debug("Saving completed")
-
-    # Upload to postgres raw table
-    logger.debug('Creating connection to DB')
-    engine = create_engine(
-        "postgresql+psycopg2://postgres:postgres@database:5432/postgres", echo=True
-    )
-    logger.debug('Connection to DB created')
-
-    # with engine.begin() as conn:
-    #     logger.debug('Dropping table')
-    #     conn.execute(text('DROP TABLE IF EXISTS raw_data;'))
-    #     logger.debug('Dropped existing table')
-
-    with engine.begin() as conn:
-        logger.debug('Creating table')
-        conn.execute(
-            text(
-                """
-                CREATE TABLE IF NOT EXISTS raw_data (
-                    date date UNIQUE NOT NULL,
-                    json json NOT NULL
-                );
-                """
-            )
-        )
-        logger.debug('Created new table')
-
-    with engine.begin() as conn:
-        logger.debug('Inserting new row into table')
-        conn.execute(
-            text(
-                """
-                INSERT INTO raw_data (date, json)
-                VALUES (:d, :j)
-                ON CONFLICT (date)
-                DO NOTHING;
-                """
-            ),
-            {
-                "d": date, 
-                "j": json.dumps(tado_data)
-            }   
-        )
-        logger.debug('Inserted new row')
-
-        conn.execute(
-            text(
-                """
-                INSERT INTO raw_data (date, json)
-                VALUES (:d, :j)
-                ON CONFLICT (date)
-                DO NOTHING;
-                """
-            ),
-            {
-                "d": date, 
-                "j": json.dumps(tado_data)
-            }   
-        )
-        logger.debug('Passed duplicate insert')
+    return str(historic_path)
 
 
+def save_zone_data(zones: list, path: Union[str, Path], date: str) -> str:
+    # Make target file path
+    zones_path = Path(generate_save_path(
+        path=path, 
+        zone_id="_all", 
+        date=date, 
+        suffix="_zones", 
+        ext=".json"
+    ))
+    logger.debug("Saving zone metadata to path: %s", zones_path)
+    json_data = json.dumps(zones, sort_keys=True, indent=4)
+    zones_path.write_text(json_data, encoding="utf-8")
+    logger.debug("Saving completed")
+    return str(zones_path)
+
+
+def extract(path: Union[str, Path], date: str) -> tuple[dict, dict]:
+    """Extracts all available zone data from API and saves to .json"""
+    logger.info(f"Starting extract func")
+
+    logger.info('Connecting to API')
+    t = Tado(os.environ["TADO_USERNAME"], os.environ["TADO_PASSWORD"])
+    logger.debug(f"API connected")
+
+    # Request list of zone IDs
+    logger.info('Getting zone metadata')
+    zones = t.getZones()
+    zone_names = [z["name"] for z in zones]
+    zone_ids = [z["id"] for z in zones]
+    logger.debug('Zones: %s', list(zip(zone_names, zone_ids)))
+
+    # Save zone data to disk
+    extracted_zone_data = save_zone_data(zones, path, date)
+
+    # Extract and save all zones, one by one
+    extracted_historic_data = []
+    for zone_id in zone_ids:
+        tado_data = extract_zone_data(t, zones, zone_id, date)
+
+        historic_path = save_historic_data(tado_data, path, date, zone_id)
+        extracted_historic_data.append(historic_path)
+
+    # Output metadata for next task
     metadata = {
-        "extracted_path": str(save_path),
-        "zone_id": zone_id,
+        "base_path": str(path),
+        "extract": {
+            "historic_data": extracted_historic_data,
+            "one_data": extracted_zone_data,
+        },
         "date": date,
     }
     return tado_data, metadata

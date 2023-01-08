@@ -5,28 +5,34 @@ from typing import Union
 
 import pandas as pd
 
-from dags.tasks.extract import generate_save_path
+from tasks.common import generate_save_path
+from tasks.common import read_extracted_historic, read_extracted_zone
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 UUID = uuid.uuid4().hex
 
 
-def transform(tado_data: dict, date: str, metadata: dict) -> dict:
+def transform(metadata: dict, date: str) -> dict:
     logger.info(f"Starting extract func")
+
+    tado_data = read_extracted_historic(metadata)
+    zone_data = read_extracted_zone(metadata)
+
     logger.debug(tado_data.keys())
 
     keys = tado_data.keys()
     zone_id = metadata["zone_id"]
-    extracted_path = Path(metadata["extracted_path"])
+    base_path = Path(metadata["base_path"])
     days_path = generate_save_path(
-        extracted_path.parent, zone_id, date, ext=".csv", suffix="_days"
+        base_path, zone_id, date, ext=".csv", suffix="_days"
     )
     climate_path = generate_save_path(
-        extracted_path.parent, zone_id, date, ext=".csv", suffix="_climate"
+        base_path, zone_id, date, ext=".csv", suffix="_climate"
     )
 
-    # EXTRACT FROM JSON
+    # EXTRACT FROM TADO_DATA
     settings = pd.json_normalize(
         tado_data["settings"],
         "dataIntervals",
@@ -101,7 +107,7 @@ def transform(tado_data: dict, date: str, metadata: dict) -> dict:
     def generate_days(other: pd.DataFrame) -> pd.DataFrame:
         days = other.assign(
             day_id=UUID,
-            extracted_path=str(extracted_path),
+            extracted_path=str(base_path),
             transformed_path=str(climate_path),
             date=date,
         )
@@ -131,7 +137,7 @@ def transform(tado_data: dict, date: str, metadata: dict) -> dict:
             .assign(
                 temperature_unit="celsius",
                 day_id=UUID,
-                extracted_path=str(extracted_path),
+                extracted_path=str(base_path),
                 transformed_path=str(climate_path),
                 date=date,
             )
@@ -142,4 +148,13 @@ def transform(tado_data: dict, date: str, metadata: dict) -> dict:
     climate.to_csv(climate_path, index=False)
 
     logger.debug(days)
-    return tado_data
+
+    # EXTRACT FROM ZONE_DATA
+
+    logger.debug('Updating metadata')
+    metadata_new = metadata.copy()
+    metadata_new["transformed"] = {
+        "climate_path": climate_path,
+        "days_path": days_path,
+    }
+    return metadata_updated
