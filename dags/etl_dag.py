@@ -21,7 +21,9 @@ def etl_dag():
     ### ETL pipeline for tado api into postgres
     """
 
-    @task
+    @task.docker(
+        image="python:3.9.13",
+    )
     def extract_task(date: str):
         """
         #### Extract data using Tado API

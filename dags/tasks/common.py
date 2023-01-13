@@ -15,21 +15,9 @@ def generate_save_path(
     ext: str,
     suffix: Optional[str] = None,
 ) -> str:
+    """Generates a save file path based on a base path, zone number and """
     save_path = (Path(base_path) / f"tado_zone{zone_id}_{date}{suffix}").with_suffix(
         ext
     )
     return str(save_path)
 
-
-def read_extracted_historic(metadata: dict) -> dict:
-    """Read each historic data file as a generator"""
-    for path in metadata["extracted"]["historic_data"]:
-        path = Path(path)
-        tado_data = json.loads(path.read_text(encoding='utf-8'))
-        yield tado_data
-
-
-def read_extracted_zone(metadata: dict) -> list:
-    """Read zone metadatadata file"""
-    path = Path(metadata["extracted"]["zone_data"])
-    return json.loads(path.read_text(encoding='utf-8'))

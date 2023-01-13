@@ -82,10 +82,18 @@ def get_zone_name(zones: list, zone_id: int) -> str:
 
 def clear_files_in_dir(path: Union[str, Path]):
     path = Path(path)
-    files_in_dir = [p.name for p in path.glob('*')]
-    num_files = len(files_in_dir)
-    logger.info('Deleting (%s) files in dir: %s', num_files, files_in_dir)
-    shutil.rmtree(path)
+    paths = list(path.glob('*'))
+    files = [p.name for p in paths]
+    num_files = len(files)
+    logger.info('Deleting %s files in dir: %s', num_files, files)
+    # shutil.rmtree(path)
+    for p in paths:
+        if p.is_file():
+            p.unlink()
+        elif p.is_dir():
+            shutil.rmtree(p)
+        else:
+            raise NotImplementedError()
     logger.debug('Files deleted')
 
 
@@ -104,7 +112,7 @@ def save_historic_data(tado_data: dict, path: str, date: str, zone_id: int) -> N
 def save_zone_data(zones: list, path: Union[str, Path], date: str) -> str:
     # Make target file path
     zones_path = Path(generate_save_path(
-        path=path, 
+        base_path=path, 
         zone_id="_all", 
         date=date, 
         suffix="_zones", 
@@ -117,9 +125,14 @@ def save_zone_data(zones: list, path: Union[str, Path], date: str) -> str:
     return str(zones_path)
 
 
-def extract(path: Union[str, Path], date: str) -> tuple[dict, dict]:
-    """Extracts all available zone data from API and saves to .json"""
-    logger.info(f"Starting extract func")
+def extract(path: Union[str, Path], date: str) -> dict:
+    """Extracts all available zone data from API and saves to .json
+    
+    Returns a metadata dict to xcom for next task"""
+    logger.info("Starting extract func")
+
+    logger.info('Deleting `files/` folder')
+    clear_files_in_dir(path)
 
     logger.info('Connecting to API')
     t = Tado(os.environ["TADO_USERNAME"], os.environ["TADO_PASSWORD"])
@@ -141,17 +154,17 @@ def extract(path: Union[str, Path], date: str) -> tuple[dict, dict]:
         tado_data = extract_zone_data(t, zones, zone_id, date)
 
         historic_path = save_historic_data(tado_data, path, date, zone_id)
-        extracted_historic_data.append(historic_path)
+        extracted_historic_data.append({"path": historic_path, "zone_id": zone_id})
 
     # Output metadata for next task
     metadata = {
         "base_path": str(path),
         "extract": {
             "historic_data": extracted_historic_data,
-            "one_data": extracted_zone_data,
+            "zone_data": extracted_zone_data,
         },
         "date": date,
     }
-    return tado_data, metadata
+    return metadata
 
 

@@ -2,37 +2,53 @@ import logging
 import uuid
 from pathlib import Path
 from typing import Union
+import json
 
 import pandas as pd
 
 from tasks.common import generate_save_path
-from tasks.common import read_extracted_historic, read_extracted_zone
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-UUID = uuid.uuid4().hex
+# UUID = uuid.uuid4().hex
+
+
+def read_extracted_historic(metadata: dict) -> dict:
+    """Read each historic data file as a generator"""
+    for zone_info in metadata["extract"]["historic_data"]:
+        zone_id = zone_info["zone_id"]
+        path = Path(zone_info["path"])
+        tado_data = json.loads(path.read_text(encoding='utf-8'))
+        yield tado_data, zone_id
+
+
+def read_extracted_zone(metadata: dict) -> list:
+    """Read zone metadatadata file"""
+    path = Path(metadata["extract"]["zone_data"])
+    return json.loads(path.read_text(encoding='utf-8'))
 
 
 def transform(metadata: dict, date: str) -> dict:
     logger.info(f"Starting extract func")
 
-    tado_data = read_extracted_historic(metadata)
     zone_data = read_extracted_zone(metadata)
 
-    logger.debug(tado_data.keys())
+    for i, (tado_data, zone_id) in enumerate(read_extracted_historic(metadata)):
+        if i > 0:
+            break
+        logger.info('BEGIN transform for zone_id: %s', zone_id)
+        logger.debug('tado_data keys: %s', tado_data.keys())
 
-    keys = tado_data.keys()
-    zone_id = metadata["zone_id"]
-    base_path = Path(metadata["base_path"])
-    days_path = generate_save_path(
-        base_path, zone_id, date, ext=".csv", suffix="_days"
-    )
-    climate_path = generate_save_path(
-        base_path, zone_id, date, ext=".csv", suffix="_climate"
-    )
+        base_path = Path(metadata["base_path"])
+        days_path = generate_save_path(
+            base_path, zone_id, date, ext=".csv", suffix="_days"
+        )
+        climate_path = generate_save_path(
+            base_path, zone_id, date, ext=".csv", suffix="_climate"
+        )
 
-    # EXTRACT FROM TADO_DATA
+    # PARSE FROM TADO_DATA
     settings = pd.json_normalize(
         tado_data["settings"],
         "dataIntervals",
@@ -106,7 +122,7 @@ def transform(metadata: dict, date: str) -> dict:
     # CREATE 'days' record
     def generate_days(other: pd.DataFrame) -> pd.DataFrame:
         days = other.assign(
-            day_id=UUID,
+            # day_id=UUID,
             extracted_path=str(base_path),
             transformed_path=str(climate_path),
             date=date,
@@ -136,7 +152,7 @@ def transform(metadata: dict, date: str) -> dict:
             )
             .assign(
                 temperature_unit="celsius",
-                day_id=UUID,
+                # day_id=UUID,
                 extracted_path=str(base_path),
                 transformed_path=str(climate_path),
                 date=date,
@@ -157,4 +173,4 @@ def transform(metadata: dict, date: str) -> dict:
         "climate_path": climate_path,
         "days_path": days_path,
     }
-    return metadata_updated
+    return metadata_new

@@ -4,7 +4,7 @@
 	"name": "Custom dev-container (VSCode)",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"context": ".."
+		"context": "."
 	},
 	// "runArgs": ["--env-file",".env"],
 	
