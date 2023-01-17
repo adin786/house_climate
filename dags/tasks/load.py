@@ -59,7 +59,7 @@ def load_zone_data(engine, metadata: dict, date: str):
         logger.debug('Passed duplicate insert')
 
 
-def load(metadata, date: str):
+def load(metadata: dict):
 
 
     # Upload to postgres raw table
@@ -74,4 +74,15 @@ def load(metadata, date: str):
     #     conn.execute(text('DROP TABLE IF EXISTS raw_data;'))
     #     logger.debug('Dropped existing table')
 
+    # TODO: Load up all csv files from disk
+
+    # TODO: Create table if not exists, define schema
+
+    # TODO: Perform UPSERT into table
+
+    # TODO: Delete files from disk, maybe in a bash script
+
+
     load_zone_data()
+    metadata_new = metadata.copy()
+    return metadata_new

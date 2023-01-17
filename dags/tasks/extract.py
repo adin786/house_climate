@@ -6,12 +6,14 @@ from pathlib import Path
 from typing import Union, Optional
 import shutil
 
-import pandas as pd
+# import pandas as pd
 import pendulum
 from dotenv import load_dotenv
 from PyTado.interface import Tado
-from sqlalchemy import create_engine, text
-from tasks.common import generate_save_path
+# from sqlalchemy import create_engine, text
+from tasks.helpers.common import generate_save_path
+from tasks.helpers.data_models import Metadata, ExtractField, HistoricDataItem
+from tasks.helpers.tado_data_models import TadoDataModel
 
 
 load_dotenv()
@@ -26,31 +28,7 @@ class MissingZone:
     """Raise if no matching zone found"""
 
 
-def validate_raw_data(tado_data: dict):
-    """Run some checks on the tado response"""
-    logger.info("Running tado validation ")
-    try:
-        assert isinstance(tado_data, dict)
-
-        assert "hoursInDay" in tado_data
-        assert tado_data["hoursInDay"] == 24
-
-        assert "interval" in tado_data
-        start_date = pendulum.parse(tado_data["interval"]["from"])
-        end_date = pendulum.parse(tado_data["interval"]["to"])
-        delta = end_date.diff(start_date)
-        logger.debug(f"{start_date=}")
-        logger.debug(f"{end_date=}")
-        logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
-        assert delta.in_hours() >= 24
-
-    except AssertionError as err:
-        logger.error("Tado data failed validation checks")
-        raise err
-    logger.info("Tado validation passed")
-
-
-def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> dict:
+def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> TadoDataModel:
     """Extracts one zone from Tado API
     
     Args:
@@ -65,8 +43,10 @@ def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> dict:
     logger.debug('Extracting zone id: %s, name: %s', zone_id, zone_name)
     # Get API response for 24hrs data
     tado_data = t.getHistoric(zone_id, date=date)
-    logger.debug(f"living_room_data:\n{list(tado_data.keys())}")
-    validate_raw_data(tado_data)
+
+    # Parse with Pydantic for validatio of JSON schema + 24 hours check
+    tado_data = TadoDataModel(**tado_data)
+    logger.debug(f'Extraction done for zone: {zone_id}')
     return tado_data
 
 
@@ -97,13 +77,14 @@ def clear_files_in_dir(path: Union[str, Path]):
     logger.debug('Files deleted')
 
 
-def save_historic_data(tado_data: dict, path: str, date: str, zone_id: int) -> None:
+def save_historic_data(tado_data: TadoDataModel, path: str, date: str, zone_id: int) -> None:
     """Save result to disk"""
     # Make target file path
     historic_path = Path(generate_save_path(path, zone_id, date, suffix="_historic", ext=".json"))
+
     # Write file
     logger.debug("Saving zone_id: %s to path: %s", zone_id, str(historic_path))
-    json_data = json.dumps(tado_data, sort_keys=True, indent=4)
+    json_data = tado_data.json(by_alias=True, sort_keys=True, indent=4)
     historic_path.write_text(json_data, encoding="utf-8")
     logger.debug("Saving completed")
     return str(historic_path)
@@ -125,11 +106,12 @@ def save_zone_data(zones: list, path: Union[str, Path], date: str) -> str:
     return str(zones_path)
 
 
-def extract(path: Union[str, Path], date: str) -> dict:
+def extract(metadata: Metadata) -> Metadata:
     """Extracts all available zone data from API and saves to .json
-    
     Returns a metadata dict to xcom for next task"""
     logger.info("Starting extract func")
+    path = Path(metadata.base_path)
+    date = metadata.date
 
     logger.info('Deleting `files/` folder')
     clear_files_in_dir(path)
@@ -154,17 +136,16 @@ def extract(path: Union[str, Path], date: str) -> dict:
         tado_data = extract_zone_data(t, zones, zone_id, date)
 
         historic_path = save_historic_data(tado_data, path, date, zone_id)
-        extracted_historic_data.append({"path": historic_path, "zone_id": zone_id})
+        extracted_historic_data.append(
+            HistoricDataItem(path=historic_path, zone_id=zone_id)
+        )
 
     # Output metadata for next task
-    metadata = {
-        "base_path": str(path),
-        "extract": {
-            "historic_data": extracted_historic_data,
-            "zone_data": extracted_zone_data,
-        },
-        "date": date,
-    }
+    logger.debug('Updating metadata')
+    metadata.extract = ExtractField(
+        historic_data=extracted_historic_data,
+        zone_data=extracted_zone_data,
+    )
     return metadata
 
 

@@ -61,7 +61,7 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- apache-airflow-providers-docker}
+    # _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- apache-airflow-providers-docker}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -294,17 +294,17 @@ services:
     ports:
       - 8081:8080
 
-  docker-socket-proxy:
-    image: tecnativa/docker-socket-proxy:0.1.1
-    environment:
-      CONTAINERS: 1
-      IMAGES: 1
-      AUTH: 1
-      POST: 1
-    privileged: true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: always
+  # docker-socket-proxy:
+  #   image: tecnativa/docker-socket-proxy:0.1.1
+  #   environment:
+  #     CONTAINERS: 1
+  #     IMAGES: 1
+  #     AUTH: 1
+  #     POST: 1
+  #   privileged: true
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   restart: always
 
 volumes:
   postgres-db-volume:

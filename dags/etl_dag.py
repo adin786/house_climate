@@ -5,6 +5,8 @@ from typing import Union
 
 import pendulum
 from airflow.decorators import dag, task
+from airflow.providers.docker.operators.docker import DockerOperator
+from docker.types import Mount
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -12,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 
 @dag(
     schedule=None,
-    start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
+    start_date=pendulum.datetime(2022, 1, 1, tz="UTC"),
     catchup=False,
     tags=["etl"],
 )
@@ -21,8 +23,30 @@ def etl_dag():
     ### ETL pipeline for tado api into postgres
     """
 
+    docker_task = DockerOperator(
+        image="docker_image_task",
+        container_name="docker_container_task0",
+        mounts=[
+            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+        ],
+        auto_remove=True,
+        mount_tmp_dir=False,
+        task_id="docker_task_test",
+        docker_url='unix://var/run/docker.sock',
+        command="ls",
+    )
+
     @task.docker(
-        image="python:3.9.13",
+        image="docker_image_task",
+        container_name='docker_container_task',
+        mounts=[
+            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            # Mount(source='./dags', target='/opt/airflow/dags', type='bind'),
+        ],
+        auto_remove=True,
+        mount_tmp_dir=False,
+        docker_url='unix://var/run/docker.sock',
+        network_mode='bridge',
     )
     def extract_task(date: str):
         """
@@ -35,6 +59,13 @@ def etl_dag():
         - Do I need some logic for duplicate detection
         - Further validation checks (or should this be a separate airflow task?)
         """
+        import os
+        import logging
+
+        logger = logging.getLogger(__name__)
+        logger.setLevel(logging.DEBUG)
+        logger.debug('CURRENT DIR: %s', os.listdir())
+        print(f'CURRENT DIR: {os.listdir()}')
         from tasks.extract import extract
 
         path = "/opt/airflow/dags/files"
@@ -64,6 +95,7 @@ def etl_dag():
 
     # Define the graph
     metadata = extract_task("{{ ds }}")
+    docker_task >> metadata
     transformed = transform_task(metadata, "{{ ds }}")
     load_task(transformed, "{{ ds }}")
 

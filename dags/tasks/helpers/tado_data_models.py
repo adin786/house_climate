@@ -2,11 +2,19 @@ from __future__ import annotations
 
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
+
+from .logs import make_logger
+import pendulum
+# TODO: implement this for data validation on the JSON input
+
+
+logger = make_logger(__name__, add_handler=True, level='debug')
 
 
 class DataInterval(BaseModel):
     from_: str = Field(..., alias='from')
+    # from_: str
     to: str
     value: str
 
@@ -18,6 +26,7 @@ class CallForHeat(BaseModel):
 
 
 class Interval(BaseModel):
+    # from_: str
     from_: str = Field(..., alias='from')
     to: str
 
@@ -66,6 +75,7 @@ class InsideTemperature(BaseModel):
 
 class DataInterval1(BaseModel):
     from_: str = Field(..., alias='from')
+    # from_: str
     to: str
     value: bool
 
@@ -90,6 +100,7 @@ class Value1(BaseModel):
 
 class DataInterval2(BaseModel):
     from_: str = Field(..., alias='from')
+    # from_: str
     to: str
     value: Value1
 
@@ -113,6 +124,7 @@ class Value2(BaseModel):
 
 class DataInterval3(BaseModel):
     from_: str = Field(..., alias='from')
+    # from_: str
     to: str
     value: Value2
 
@@ -134,6 +146,7 @@ class Value3(BaseModel):
 
 
 class DataInterval4(BaseModel):
+    # from_: str
     from_: str = Field(..., alias='from')
     to: str
     value: Value3
@@ -204,13 +217,15 @@ class Slots1(BaseModel):
 
 
 class Slots(BaseModel):
-    slots: Slots1
+    # slots: Slots1
+    slots: dict
     timeSeriesType: str
     valueType: str
 
 
 class DataInterval5(BaseModel):
     from_: str = Field(..., alias='from')
+    # from_: str
     to: str
     value: bool
 
@@ -227,7 +242,7 @@ class Weather(BaseModel):
     sunny: Sunny
 
 
-class Model(BaseModel):
+class TadoDataModel(BaseModel):
     callForHeat: CallForHeat
     hoursInDay: int
     interval: Interval
@@ -236,3 +251,18 @@ class Model(BaseModel):
     stripes: Stripes
     weather: Weather
     zoneType: str
+
+    # TODO: Consider putting a validator here to validate that the duration is 24hrs
+    @validator('interval')
+    def duration_over_24h(cls, v):
+        start_date = pendulum.parse(v.from_)
+        end_date = pendulum.parse(v.to)
+        delta = end_date.diff(start_date)
+        logger.debug(f"{start_date=}")
+        logger.debug(f"{end_date=}")
+        logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
+        if delta.in_hours() < 24:
+            raise ValueError(
+                f'Duration of historical data should be >= 24 hours. This was {delta.in_hours()}'
+            )
+        return v

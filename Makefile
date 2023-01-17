@@ -1,5 +1,5 @@
 .PHONY: clean requirements style 
-.PHONY: containers_init containers_up, containers_down
+.PHONY: containers_init containers_custom containers_up containers_down
 
 
 ## Delete all compiled Python files
@@ -21,11 +21,13 @@ style:
 containers_init:
 	docker compose up airflow-init
 
-containers_up:
+containers_custom:
 	docker build \
 		-f docker/airflow_docker_operator/Dockerfile \
 		-t docker_image_task \
 		. && \
+
+containers_up:
 	docker compose up -d
 
 containers_down:

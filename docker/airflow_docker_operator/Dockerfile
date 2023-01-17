@@ -23,3 +23,5 @@ WORKDIR /tmp
 COPY ${base_path}/requirements.txt requirements.txt
 RUN --mount=type=cache,target=/root/.cache \
     python -m pip install -r requirements.txt
+
+WORKDIR /opt/airflow/dags

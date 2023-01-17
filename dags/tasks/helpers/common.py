@@ -1,7 +1,6 @@
 from typing import Optional, Union
 from pathlib import Path
 import logging
-import pendulum
 import json
 
 logger = logging.getLogger(__name__)
@@ -21,3 +20,8 @@ def generate_save_path(
     )
     return str(save_path)
 
+
+def read_extracted_zone(metadata: dict) -> list:
+    """Read zone metadatadata file"""
+    path = Path(metadata["extract"]["zone_data"])
+    return json.loads(path.read_text(encoding='utf-8'))
