@@ -10,13 +10,14 @@ logger.setLevel(logging.DEBUG)
 
 
 def generate_save_path(
-    base_path: Union[str, Path],
+    metadata: Metadata,
     zone_id: str,
-    date: str,
     ext: str,
     suffix: Optional[str] = None,
 ) -> str:
     """Generates a save file path based on a base path, zone number and"""
+    base_path = metadata.base_path
+    date = metadata.date
     save_path = (Path(base_path) / f"tado_zone{zone_id}_{date}{suffix}").with_suffix(
         ext
     )

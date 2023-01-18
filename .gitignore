@@ -134,3 +134,4 @@ logs
 # Custom
 **/*.csv
 **/*.json
+dags/tasks/tests/test_data/*

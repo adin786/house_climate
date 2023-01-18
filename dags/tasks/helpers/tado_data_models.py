@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 import pendulum
 from pydantic import BaseModel, Field, validator, root_validator
@@ -13,7 +13,6 @@ logger = make_logger(__name__, add_handler=True, level="debug")
 
 class DataInterval(BaseModel):
     from_: str = Field(..., alias="from")
-    # from_: str
     to: str
     value: str
 
@@ -25,7 +24,6 @@ class CallForHeat(BaseModel):
 
 
 class Interval(BaseModel):
-    # from_: str
     from_: str = Field(..., alias="from")
     to: str
 
@@ -74,7 +72,6 @@ class InsideTemperature(BaseModel):
 
 class DataInterval1(BaseModel):
     from_: str = Field(..., alias="from")
-    # from_: str
     to: str
     value: bool
 
@@ -99,7 +96,6 @@ class Value1(BaseModel):
 
 class DataInterval2(BaseModel):
     from_: str = Field(..., alias="from")
-    # from_: str
     to: str
     value: Value1
 
@@ -110,6 +106,10 @@ class Settings(BaseModel):
     valueType: str
 
 
+# ================================
+# =========== Stripes ============
+# ================================
+
 class Setting(BaseModel):
     power: str
     temperature: Any
@@ -117,15 +117,20 @@ class Setting(BaseModel):
 
 
 class Value2(BaseModel):
+    """dataIntervals > value looks like this if normal operation"""
     setting: Setting
+    stripeType: str
+
+class Value2Disconnected(BaseModel):
+    """dataInterval > value looks like this if measuring device 
+    is disconnected"""
     stripeType: str
 
 
 class DataInterval3(BaseModel):
     from_: str = Field(..., alias="from")
-    # from_: str
     to: str
-    value: Value2
+    value: Union[Value2, Value2Disconnected]
 
 
 class Stripes(BaseModel):
@@ -145,7 +150,6 @@ class Value3(BaseModel):
 
 
 class DataInterval4(BaseModel):
-    # from_: str
     from_: str = Field(..., alias="from")
     to: str
     value: Value3
@@ -224,7 +228,6 @@ class Slots(BaseModel):
 
 class DataInterval5(BaseModel):
     from_: str = Field(..., alias="from")
-    # from_: str
     to: str
     value: bool
 

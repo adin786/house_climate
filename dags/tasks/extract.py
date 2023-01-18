@@ -84,12 +84,12 @@ def clear_files_in_dir(path: Union[str, Path]):
 
 
 def save_historic_data(
-    tado_data: TadoDataModel, path: str, date: str, zone_id: int
+    tado_data: TadoDataModel, metadata: Metadata, zone_id: int
 ) -> None:
     """Save result to disk"""
     # Make target file path
     historic_path = Path(
-        generate_save_path(path, zone_id, date, suffix="_historic", ext=".json")
+        generate_save_path(metadata, zone_id, ext=".json", suffix="_historic")
     )
 
     # Write file
@@ -100,11 +100,11 @@ def save_historic_data(
     return str(historic_path)
 
 
-def save_zone_data(zones: list, path: Union[str, Path], date: str) -> str:
+def save_zone_data(zones: list, metadata: Metadata) -> str:
     # Make target file path
     zones_path = Path(
         generate_save_path(
-            base_path=path, zone_id="_all", date=date, suffix="_zones", ext=".json"
+            metadata, "_all", ext=".json", suffix="_zones"
         )
     )
     logger.debug("Saving zone metadata to path: %s", zones_path)
@@ -136,13 +136,13 @@ def extract(metadata: Metadata) -> Metadata:
     logger.debug("Zones: %s", list(zip(zone_names, zone_ids)))
 
     # Save zone data to disk
-    extracted_zone_data = save_zone_data(zones, path, date)
+    extracted_zone_data = save_zone_data(zones, metadata)
 
     # Extract and save all zones, one by one
     extracted_historic_data = []
     for zone_id in zone_ids:
         tado_data = extract_zone_data(t, zones, zone_id, date)
-        historic_path = save_historic_data(tado_data, path, date, zone_id)
+        historic_path = save_historic_data(tado_data, metadata, zone_id)
 
         extracted_historic_data.append(
             HistoricDataItem(path=historic_path, zone_id=zone_id)

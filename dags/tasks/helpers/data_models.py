@@ -1,25 +1,26 @@
 from typing import Optional
 
-from pydantic import BaseModel, DirectoryPath, FilePath
-
+from pydantic import BaseModel, DirectoryPath, Path
+from pathlib import Path
 
 class HistoricDataItem(BaseModel):
-    path: FilePath
+    path: Path
     zone_id: int
 
 
 class ExtractField(BaseModel):
-    historic_data: list[HistoricDataItem]
-    zone_data: FilePath
+    historic_data: list[Optional[HistoricDataItem]]
+    zone_data: Path
 
 
 class TransformedZoneItem(BaseModel):
-    climate_path: FilePath
-    days_path: FilePath
+    climate_path: Path
+    days_path: Path
+    weather_path: Path
 
 
 class TransformField(BaseModel):
-    paths: list[TransformedZoneItem]
+    paths: list[Optional[TransformedZoneItem]]
 
 
 class Metadata(BaseModel):

@@ -11,7 +11,7 @@ from tasks.helpers.data_models import Metadata
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-TEST_DATE = "2022-08-15"
+TEST_DATE = "2022-12-01"
 # TEST_DATETIME = "2022-08-14T22:45:00+00:00"
 TEST_BASE_PATH = Path(__file__).parent
 TEST_DATA_DIR = TEST_BASE_PATH / "test_data"
@@ -34,14 +34,14 @@ def test_extract():
 @pytest.mark.validate
 def test_validate():
     """Check that validate method works OK"""
-    metadata = Metadata.parse_file(TEST_DATA_DIR / 'metadata_test.json')
+    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
     metadata = validate(metadata)
 
 
 @pytest.mark.transform
 def test_transform():
     """Check that transform method works OK"""
-    metadata = Metadata.parse_file(TEST_DATA_DIR / 'metadata_test.json')
+    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
     metadata = transform(metadata)
     climate_csvs = [x.climate_path for x in metadata.transform.paths]
     days_csvs = [x.days_path for x in metadata.transform.paths]
