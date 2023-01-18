@@ -45,9 +45,13 @@ def etl_dag_2():
         image="docker_image_task",
         container_name="docker_container_extract_task",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
         ],
-        environment = {
+        environment={
             "BASE_PATH": BASE_PATH,
             "LOGICAL_DATE": "{{ ds }}",
             "TADO_USERNAME": "{{ var.value.TADO_USERNAME }}",
@@ -64,9 +68,13 @@ def etl_dag_2():
         image="docker_image_task",
         container_name="docker_container_validate_task",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
         ],
-        environment = {
+        environment={
             "XCOM_PULL": "{{ ti.xcom_pull('extract_task') }}",
         },
         auto_remove=True,
@@ -80,9 +88,13 @@ def etl_dag_2():
         image="docker_image_task",
         container_name="docker_container_transform_task",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
         ],
-        environment = {
+        environment={
             "XCOM_PULL": "{{ ti.xcom_pull('validate_task') }}",
         },
         auto_remove=True,
@@ -96,9 +108,13 @@ def etl_dag_2():
         image="docker_image_task",
         container_name="docker_container_load_task",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
         ],
-        environment = {
+        environment={
             "BASE_PATH": BASE_PATH,
             "LOGICAL_DATE": "{{ ds }}",
             "XCOM_PULL": "{{ ti.xcom_pull('transform_task') }}",
@@ -114,5 +130,6 @@ def etl_dag_2():
 
     # DAG
     extract_task >> validate_task >> transform_task >> load_task
+
 
 etl_dag_2()

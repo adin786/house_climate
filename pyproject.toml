@@ -1,7 +1,30 @@
+[build-system]
+requires= ["setuptools >= 61.0.0", "setuptools_scm[toml]>=7.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tasks"
+description = "Packaged up helper functions for airflow dags"
+readme = "README.md"
+requires-python = ">=3.9.13"
+dynamic = ["version"]
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages.find]
+where = ["dags"]
+include = ["tasks*"]
+exclude = [
+    "*.json"
+]
+namespaces = false
+
 [tool.pytest.ini_options]
 markers = [
     "extract",
+    "validate",
     "transform",
+    "load",
 ]
 addopts = "-o log_cli=true"
 testpaths = [

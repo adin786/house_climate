@@ -1,19 +1,18 @@
-from __future__ import annotations
-
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field, validator
+import pendulum
+from pydantic import BaseModel, Field, validator, root_validator
 
 from .logs import make_logger
-import pendulum
+
 # TODO: implement this for data validation on the JSON input
 
 
-logger = make_logger(__name__, add_handler=True, level='debug')
+logger = make_logger(__name__, add_handler=True, level="debug")
 
 
 class DataInterval(BaseModel):
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     # from_: str
     to: str
     value: str
@@ -27,7 +26,7 @@ class CallForHeat(BaseModel):
 
 class Interval(BaseModel):
     # from_: str
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     to: str
 
 
@@ -74,7 +73,7 @@ class InsideTemperature(BaseModel):
 
 
 class DataInterval1(BaseModel):
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     # from_: str
     to: str
     value: bool
@@ -99,7 +98,7 @@ class Value1(BaseModel):
 
 
 class DataInterval2(BaseModel):
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     # from_: str
     to: str
     value: Value1
@@ -123,7 +122,7 @@ class Value2(BaseModel):
 
 
 class DataInterval3(BaseModel):
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     # from_: str
     to: str
     value: Value2
@@ -147,7 +146,7 @@ class Value3(BaseModel):
 
 class DataInterval4(BaseModel):
     # from_: str
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     to: str
     value: Value3
 
@@ -209,11 +208,11 @@ class Field2000(BaseModel):
 
 
 class Slots1(BaseModel):
-    field_04_00: Field0400 = Field(..., alias='04:00')
-    field_08_00: Field0800 = Field(..., alias='08:00')
-    field_12_00: Field1200 = Field(..., alias='12:00')
-    field_16_00: Field1600 = Field(..., alias='16:00')
-    field_20_00: Field2000 = Field(..., alias='20:00')
+    field_04_00: Field0400 = Field(..., alias="04:00")
+    field_08_00: Field0800 = Field(..., alias="08:00")
+    field_12_00: Field1200 = Field(..., alias="12:00")
+    field_16_00: Field1600 = Field(..., alias="16:00")
+    field_20_00: Field2000 = Field(..., alias="20:00")
 
 
 class Slots(BaseModel):
@@ -224,7 +223,7 @@ class Slots(BaseModel):
 
 
 class DataInterval5(BaseModel):
-    from_: str = Field(..., alias='from')
+    from_: str = Field(..., alias="from")
     # from_: str
     to: str
     value: bool
@@ -251,18 +250,32 @@ class TadoDataModel(BaseModel):
     stripes: Stripes
     weather: Weather
     zoneType: str
+    computed_duration: Optional[float]
+
+    class Config:
+        allow_mutation = False
 
     # TODO: Consider putting a validator here to validate that the duration is 24hrs
-    @validator('interval')
-    def duration_over_24h(cls, v):
-        start_date = pendulum.parse(v.from_)
-        end_date = pendulum.parse(v.to)
+    # @validator("interval")
+    # def duration_over_24h(cls, v):
+    #     start_date = pendulum.parse(v.from_)
+    #     end_date = pendulum.parse(v.to)
+    #     delta = end_date.diff(start_date)
+    #     logger.debug(f"{start_date=}")
+    #     logger.debug(f"{end_date=}")
+    #     logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
+    #     if delta.in_hours() < 24:
+    #         raise ValueError(
+    #             f"Duration of historical data should be >= 24 hours. This was {delta.in_hours()}"
+    #         )
+    #     return v
+
+    @root_validator
+    def calc_duration(cls, values) -> dict:
+        start_date = pendulum.parse(values["interval"].from_)
+        end_date = pendulum.parse(values["interval"].to)
         delta = end_date.diff(start_date)
-        logger.debug(f"{start_date=}")
-        logger.debug(f"{end_date=}")
         logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
-        if delta.in_hours() < 24:
-            raise ValueError(
-                f'Duration of historical data should be >= 24 hours. This was {delta.in_hours()}'
-            )
-        return v
+        values["computed_duration"] = delta.in_hours()
+        return values
+    

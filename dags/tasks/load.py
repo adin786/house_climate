@@ -1,17 +1,18 @@
-
-import logging
-from sqlalchemy import create_engine, text
-from dotenv import load_dotenv
 import json
+import logging
+
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
+from tasks.helpers.data_models import Metadata
 
 load_dotenv()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
-def load_zone_data(engine, metadata: dict, date: str):
+def load_zone_data(engine, metadata: Metadata):
     with engine.begin() as conn:
-        logger.debug('Creating table')
+        logger.debug("Creating table")
         conn.execute(
             text(
                 """
@@ -22,10 +23,10 @@ def load_zone_data(engine, metadata: dict, date: str):
                 """
             )
         )
-        logger.debug('Created new table')
+        logger.debug("Created new table")
 
     with engine.begin() as conn:
-        logger.debug('Inserting new row into table')
+        logger.debug("Inserting new row into table")
         conn.execute(
             text(
                 """
@@ -35,12 +36,9 @@ def load_zone_data(engine, metadata: dict, date: str):
                 DO NOTHING;
                 """
             ),
-            {
-                "d": date, 
-                "j": json.dumps(tado_data)
-            }   
+            {"d": date, "j": json.dumps(tado_data)},
         )
-        logger.debug('Inserted new row')
+        logger.debug("Inserted new row")
 
         conn.execute(
             text(
@@ -51,23 +49,19 @@ def load_zone_data(engine, metadata: dict, date: str):
                 DO NOTHING;
                 """
             ),
-            {
-                "d": date, 
-                "j": json.dumps(tado_data)
-            }   
+            {"d": date, "j": json.dumps(tado_data)},
         )
-        logger.debug('Passed duplicate insert')
+        logger.debug("Passed duplicate insert")
 
 
-def load(metadata: dict):
-
+def load(metadata: Metadata):
 
     # Upload to postgres raw table
-    logger.debug('Creating connection to DB')
+    logger.debug("Creating connection to DB")
     engine = create_engine(
         "postgresql+psycopg2://postgres:postgres@database:5432/postgres", echo=True
     )
-    logger.debug('Connection to DB created')
+    logger.debug("Connection to DB created")
 
     # with engine.begin() as conn:
     #     logger.debug('Dropping table')
@@ -82,7 +76,8 @@ def load(metadata: dict):
 
     # TODO: Delete files from disk, maybe in a bash script
 
-
     load_zone_data()
+
+    logger.debug("Updating metadata")
     metadata_new = metadata.copy()
     return metadata_new

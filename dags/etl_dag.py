@@ -27,26 +27,34 @@ def etl_dag():
         image="docker_image_task",
         container_name="docker_container_task0",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
         ],
         auto_remove=True,
         mount_tmp_dir=False,
         task_id="docker_task_test",
-        docker_url='unix://var/run/docker.sock',
+        docker_url="unix://var/run/docker.sock",
         command="ls",
     )
 
     @task.docker(
         image="docker_image_task",
-        container_name='docker_container_task',
+        container_name="docker_container_task",
         mounts=[
-            Mount(source='/workspaces/house_climate/dags', target='/opt/airflow/dags', type='bind'),
+            Mount(
+                source="/workspaces/house_climate/dags",
+                target="/opt/airflow/dags",
+                type="bind",
+            ),
             # Mount(source='./dags', target='/opt/airflow/dags', type='bind'),
         ],
         auto_remove=True,
         mount_tmp_dir=False,
-        docker_url='unix://var/run/docker.sock',
-        network_mode='bridge',
+        docker_url="unix://var/run/docker.sock",
+        network_mode="bridge",
     )
     def extract_task(date: str):
         """
@@ -59,13 +67,13 @@ def etl_dag():
         - Do I need some logic for duplicate detection
         - Further validation checks (or should this be a separate airflow task?)
         """
-        import os
         import logging
+        import os
 
         logger = logging.getLogger(__name__)
         logger.setLevel(logging.DEBUG)
-        logger.debug('CURRENT DIR: %s', os.listdir())
-        print(f'CURRENT DIR: {os.listdir()}')
+        logger.debug("CURRENT DIR: %s", os.listdir())
+        print(f"CURRENT DIR: {os.listdir()}")
         from tasks.extract import extract
 
         path = "/opt/airflow/dags/files"
@@ -74,7 +82,6 @@ def etl_dag():
         metadata = extract(path, date)
         logger.debug("EXTRACT: finished")
         return metadata
-
 
     @task
     def transform_task(metadata, date: str):
@@ -85,7 +92,6 @@ def etl_dag():
         metadata_new = transform(metadata, date)
         logger.debug("TRANSFORM: finished")
         return metadata_new
-
 
     @task
     def load_task(transformed, date: str):

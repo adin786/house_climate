@@ -1,6 +1,6 @@
 import logging
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Union
 
 
@@ -14,16 +14,16 @@ def _set_level(level: str) -> int:
         "critical": logging.CRITICAL,
     }
     if level not in levels_lookup:
-        raise ValueError('Invalid level')
+        raise ValueError("Invalid level")
     return levels_lookup.get(level)
 
 
 def make_logger(
-    name: str, 
-    level: str = 'debug', 
+    name: str,
+    level: str = "debug",
     path: Union[str, Path] = None,
-    mode: str = 'w',
-    add_handler: bool = False
+    mode: str = "w",
+    add_handler: bool = False,
 ) -> logging.Logger:
     level = _set_level(level)
 
@@ -33,7 +33,9 @@ def make_logger(
         logger.removeHandler(handler)
 
     logger.setLevel(level)
-    log_formatter = logging.Formatter('%(asctime)s [%(levelname)-5.5s/%(name)s] %(message)s')
+    log_formatter = logging.Formatter(
+        "%(asctime)s [%(levelname)-5.5s/%(name)s] %(message)s"
+    )
 
     if path is not None:
         path = Path(path)
@@ -53,5 +55,3 @@ def silence_loggers(names: list[str]) -> None:
     for name in names:
         l = logging.getLogger(name)
         l.setLevel(logging.WARNING)
-
-
