@@ -16,7 +16,7 @@ def validate(metadata: Metadata) -> Metadata:
     data covers a full 24 hour duration"""
 
     # Validate that the saved tado_data parses to
-    for hist_data in metadata.extract.historic_data:
+    for hist_data in metadata.extract.zones:
         # Parse using pydantic to validate JSON schema
         tado_data = TadoDataModel.parse_file(hist_data.path)
 

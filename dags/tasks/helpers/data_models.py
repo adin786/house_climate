@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, DirectoryPath, Path
+from pydantic import BaseModel, DirectoryPath
 from pathlib import Path
 
 class HistoricDataItem(BaseModel):
@@ -9,18 +9,23 @@ class HistoricDataItem(BaseModel):
 
 
 class ExtractField(BaseModel):
-    historic_data: list[Optional[HistoricDataItem]]
-    zone_data: Path
+    zones: list[Optional[HistoricDataItem]]
+    zones_path: Path
 
 
 class TransformedZoneItem(BaseModel):
-    climate_path: Path
+    interior_path: Path
     days_path: Path
     weather_path: Path
+    zone_id: int
 
 
 class TransformField(BaseModel):
-    paths: list[Optional[TransformedZoneItem]]
+    zones: list[Optional[TransformedZoneItem]]
+    zones_path: Optional[Path]
+    interior_all_path: Optional[Path]
+    days_all_path: Optional[Path]
+    weather_all_path: Optional[Path]
 
 
 class Metadata(BaseModel):

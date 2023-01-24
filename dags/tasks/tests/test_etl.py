@@ -6,6 +6,7 @@ import pytest
 from tasks.extract import extract
 from tasks.validate import validate
 from tasks.transform import transform
+from tasks.load import load
 from tasks.helpers.data_models import Metadata
 
 logger = logging.getLogger(__name__)
@@ -25,11 +26,11 @@ def test_extract():
     metadata = Metadata(base_path=TEST_DATA_DIR, date=TEST_DATE)
     metadata = extract(metadata)
 
-    historic_data_paths = [Path(x.path) for x in metadata.extract.historic_data]
-    zone_data_path = metadata.extract.zone_data
+    historic_data_paths = [Path(x.path) for x in metadata.extract.zones]
+    zones_data_path = metadata.extract.zones_path
 
     assert [p.is_file() for p in historic_data_paths]
-    assert zone_data_path.is_file()
+    assert zones_data_path.is_file()
 
 @pytest.mark.validate
 def test_validate():
@@ -43,14 +44,26 @@ def test_transform():
     """Check that transform method works OK"""
     metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
     metadata = transform(metadata)
-    climate_csvs = [x.climate_path for x in metadata.transform.paths]
-    days_csvs = [x.days_path for x in metadata.transform.paths]
-
-    assert [f.is_file() for f in climate_csvs]
+    interior_csvs = [x.interior_path for x in metadata.transform.zones]
+    days_csvs = [x.days_path for x in metadata.transform.zones]
+    weather_csvs = [x.weather_path for x in metadata.transform.zones]
+    assert [f.is_file() for f in interior_csvs]
     assert [f.is_file() for f in days_csvs]
-
+    assert [f.is_file() for f in weather_csvs]
+    assert metadata.transform.interior_all_path.is_file()
+    assert metadata.transform.days_all_path.is_file()
+    assert metadata.transform.weather_all_path.is_file()
 
 @pytest.mark.transform
 def test_partial_transform(tado_data, tmp_path):
     """Check that partial data is handled properly, should fail and allow retry"""
     assert False
+
+@pytest.mark.load
+def test_load():
+    """Check that load method works OK"""
+    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
+    metadata = transform(metadata)
+    metadata = load(metadata)
+    assert False
+

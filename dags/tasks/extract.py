@@ -2,9 +2,9 @@ import json
 import logging
 import os
 import shutil
-import uuid
 from pathlib import Path
 from typing import Union
+import time
 
 import backoff
 import pendulum
@@ -19,11 +19,10 @@ from tasks.helpers.exceptions import MissingZone
 load_dotenv()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-SELECTED_ZONE = "Downstairs hallway"
-UUID = uuid.uuid4().hex
 EXTRACTED_ON = pendulum.now()
 TADO_USERNAME = os.environ["TADO_USERNAME"]
 TADO_PASSWORD = os.environ["TADO_PASSWORD"]
+API_WAIT_TIME = 1
 
 
 @backoff.on_exception(
@@ -47,6 +46,7 @@ def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> TadoData
     logger.debug("Extracting zone id: %s, name: %s", zone_id, zone_name)
     # Get API response for 24hrs data
     tado_data = t.getHistoric(zone_id, date=date)
+    time.sleep(API_WAIT_TIME) # Delay for API traffic
 
     # Parse with Pydantic for validatio of JSON schema + 24 hours check
     tado_data = TadoDataModel(**tado_data)
@@ -131,6 +131,7 @@ def extract(metadata: Metadata) -> Metadata:
     # Request list of zone IDs
     logger.info("Getting zone metadata")
     zones = t.getZones()
+    time.sleep(API_WAIT_TIME) # Delay for API traffic
     zone_names = [z["name"] for z in zones]
     zone_ids = [z["id"] for z in zones]
     logger.debug("Zones: %s", list(zip(zone_names, zone_ids)))
@@ -142,8 +143,8 @@ def extract(metadata: Metadata) -> Metadata:
     extracted_historic_data = []
     for zone_id in zone_ids:
         tado_data = extract_zone_data(t, zones, zone_id, date)
-        historic_path = save_historic_data(tado_data, metadata, zone_id)
 
+        historic_path = save_historic_data(tado_data, metadata, zone_id)
         extracted_historic_data.append(
             HistoricDataItem(path=historic_path, zone_id=zone_id)
         )
@@ -151,7 +152,7 @@ def extract(metadata: Metadata) -> Metadata:
     # Output metadata for next task
     logger.debug("Updating metadata")
     metadata.extract = ExtractField(
-        historic_data=extracted_historic_data,
-        zone_data=extracted_zone_data,
+        zones=extracted_historic_data,
+        zones_path=extracted_zone_data,
     )
     return metadata

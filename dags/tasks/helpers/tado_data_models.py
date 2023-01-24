@@ -8,7 +8,7 @@ from .logs import make_logger
 # TODO: implement this for data validation on the JSON input
 
 
-logger = make_logger(__name__, add_handler=True, level="debug")
+logger = make_logger(__name__, level="debug")
 
 
 class DataInterval(BaseModel):

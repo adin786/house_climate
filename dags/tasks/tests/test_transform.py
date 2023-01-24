@@ -1,4 +1,4 @@
-from tasks.transform import transform, generate_climate
+from tasks.transform import transform, generate_interior
 import logging
 
 
