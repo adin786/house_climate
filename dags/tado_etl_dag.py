@@ -13,7 +13,7 @@ BASE_PATH = "/opt/airflow/dags/files"
 
 @dag(
     schedule="0 1 * * *",
-    start_date=pendulum.datetime(2023, 1, 1, tz="UTC"),
+    start_date=pendulum.datetime(2023, 1, 2, tz="UTC"),
     catchup=True,
     tags=["etl", "tado", "smart-home", "IoT"],
     max_active_runs=1,
