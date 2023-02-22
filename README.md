@@ -4,17 +4,17 @@ Using Tado API to analyse data from smart thermostat + TRVs etc.
 ## High-level summary
 - Developed an ETL pipeline using `Airflow`.
     - Extract from `PyTado` API using `backoff` to handle retries
-    - Incremental (daily) load to `PostGres` DB.
+    - Incremental (daily) load to `Postgres` DB.
     - Configured Airflow through `docker compose`.
     - JSON schema validation using `Pydantic`.
     - Data transform using `Pandas`.
     - Load to DB using `SQLAlchemy`.
-    - **(Future)** May build in data validation using Great `Expectations` or `Pandera`. 
-- Plan to aggregate heating system metrics over the full 2022 year's data.
-- Probably going to figure out some way to dashboard the results, Dash, Grafana etc.
-- May deploy to AWS etc. Currently running Airflow locally.
-- May look into anomaly detection to highlight unusual heating days.
+- Currently running Airflow locally through `docker compose`.
+- **(Todo)** Dashboarding the results, Dash, Grafana etc.
+- **(Todo)** Compute aggregate heating system metrics over the full 2022 year's data.
+- **(Future)** May look into anomaly detection to highlight unusual heating days.
     - May require comparison with weather data (which is already in the Tado API data).
+- **(Future)** May build in data validation using Great `Expectations` or `Pandera`. 
 
 ---
 
