@@ -25,7 +25,7 @@ def generate_save_path(
 
 def read_text_file(path: Union[str, Path]) -> str:
     path = Path(path)
-    return path.read_text(encoding='utf-8')
+    return path.read_text(encoding="utf-8")
 
 
 def get_zone_item_by_id(zones: list[TransformedZoneItem], zone_id):
@@ -33,4 +33,3 @@ def get_zone_item_by_id(zones: list[TransformedZoneItem], zone_id):
         if zone.zone_id == zone_id:
             return zone
     raise ValueError(f"No matching zone_id found: {zone_id}")
-

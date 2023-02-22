@@ -1,7 +1,7 @@
 from typing import Any, List, Optional, Union
 
 import pendulum
-from pydantic import BaseModel, Field, validator, root_validator
+from pydantic import BaseModel, Field, root_validator, validator
 
 from .logs import make_logger
 
@@ -35,11 +35,15 @@ class DataPoint(BaseModel):
 
 class Humidity(BaseModel):
     dataPoints: List[DataPoint]
-    max: float
-    min: float
+    max: Optional[float]
+    min: Optional[float]
     percentageUnit: str
     timeSeriesType: str
     valueType: str
+
+    @validator("max", "min")
+    def set_max_min(cls, v):
+        return v if v is not None else -999.0
 
 
 class Value(BaseModel):
@@ -52,22 +56,21 @@ class DataPoint1(BaseModel):
     value: Value
 
 
-class Max(BaseModel):
-    celsius: float
-    fahrenheit: float
-
-
-class Min(BaseModel):
+class MaxMin(BaseModel):
     celsius: float
     fahrenheit: float
 
 
 class InsideTemperature(BaseModel):
     dataPoints: List[DataPoint1]
-    max: Max
-    min: Min
+    max: Optional[MaxMin]
+    min: Optional[MaxMin]
     timeSeriesType: str
     valueType: str
+
+    @validator("max", "min")
+    def set_max_min(cls, v):
+        return v if v is not None else MaxMin(celsius=-999, fahrenheit=-999)
 
 
 class DataInterval1(BaseModel):
@@ -110,6 +113,7 @@ class Settings(BaseModel):
 # =========== Stripes ============
 # ================================
 
+
 class Setting(BaseModel):
     power: str
     temperature: Any
@@ -118,12 +122,15 @@ class Setting(BaseModel):
 
 class Value2(BaseModel):
     """dataIntervals > value looks like this if normal operation"""
+
     setting: Setting
     stripeType: str
 
+
 class Value2Disconnected(BaseModel):
-    """dataInterval > value looks like this if measuring device 
+    """dataInterval > value looks like this if measuring device
     is disconnected"""
+
     stripeType: str
 
 
@@ -281,4 +288,3 @@ class TadoDataModel(BaseModel):
         logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
         values["computed_duration"] = delta.in_hours()
         return values
-    

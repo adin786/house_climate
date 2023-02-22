@@ -1,6 +1,6 @@
-from tasks.transform import transform, generate_interior
 import logging
 
+from tasks.transform import generate_interior, transform
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

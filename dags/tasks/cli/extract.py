@@ -1,5 +1,3 @@
-import json
-import logging
 import os
 from pathlib import Path
 
@@ -11,21 +9,25 @@ logger = make_logger("root", add_handler=True, level="debug")
 
 
 if __name__ == "__main__":
-    logging.debug("Starting docker task for extract")
+    logger.debug("Starting docker task for extract")
 
     base_path = os.environ.get("BASE_PATH")
+    metadata_path = Path(base_path) / "metadata.json"
     logical_date = os.environ.get("LOGICAL_DATE")
 
-    logging.debug("base_path: %s", base_path)
-    logging.debug("logical_date: %s", logical_date)
+    logger.debug("base_path: %s", base_path)
+    logger.debug("logical_date: %s", logical_date)
 
     metadata = Metadata(
         base_path=base_path,
         date=logical_date,
     )
-    logging.debug("Parsed Metadata: %s", metadata)
+    logger.debug("Parsed Metadata: %s", metadata)
 
-    metadata_new = extract(metadata)
+    metadata = extract(metadata)
+    logger.debug("output metadata: %s", metadata.json())
+
+    metadata_path.write_text(metadata.json(sort_keys=True, indent=4), encoding="utf-8")
 
     # Print to stdout for xcom push
-    print(metadata_new.json())
+    logger.info(str(metadata_path))

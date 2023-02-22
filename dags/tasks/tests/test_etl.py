@@ -4,10 +4,10 @@ from pathlib import Path
 
 import pytest
 from tasks.extract import extract
-from tasks.validate import validate
-from tasks.transform import transform
-from tasks.load import load
 from tasks.helpers.data_models import Metadata
+from tasks.load import load
+from tasks.transform import transform
+from tasks.validate import validate
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -32,17 +32,18 @@ def test_extract():
     assert [p.is_file() for p in historic_data_paths]
     assert zones_data_path.is_file()
 
+
 @pytest.mark.validate
 def test_validate():
     """Check that validate method works OK"""
-    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
+    metadata = Metadata.parse_file(TEST_BASE_PATH / "metadata_example.json")
     metadata = validate(metadata)
 
 
 @pytest.mark.transform
 def test_transform():
     """Check that transform method works OK"""
-    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
+    metadata = Metadata.parse_file(TEST_BASE_PATH / "metadata_example.json")
     metadata = transform(metadata)
     interior_csvs = [x.interior_path for x in metadata.transform.zones]
     days_csvs = [x.days_path for x in metadata.transform.zones]
@@ -54,16 +55,17 @@ def test_transform():
     assert metadata.transform.days_all_path.is_file()
     assert metadata.transform.weather_all_path.is_file()
 
+
 @pytest.mark.transform
 def test_partial_transform(tado_data, tmp_path):
     """Check that partial data is handled properly, should fail and allow retry"""
     assert False
 
+
 @pytest.mark.load
 def test_load():
     """Check that load method works OK"""
-    metadata = Metadata.parse_file(TEST_BASE_PATH / 'metadata_example.json')
+    metadata = Metadata.parse_file(TEST_BASE_PATH / "metadata_example.json")
     metadata = transform(metadata)
     metadata = load(metadata)
     assert False
-

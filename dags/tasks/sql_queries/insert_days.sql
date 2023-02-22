@@ -4,6 +4,11 @@ INSERT INTO days (
     t_start,
     t_end,
     zone_id,
-    extracted_date
+    zone_name,
+    extracted_date,
+    historic_data,
+    zone_metadata
 )
-VALUES (24,'HEATING','2023-01-13T23:45:00.000Z','2023-01-15T00:15:00.000Z',2,'2023-01-14');
+VALUES (:hours_in_day,:zone_type,:t_start,:t_end,:zone_id,:zone_name,:extracted_date,:historic_data,:zone_metadata)
+ON CONFLICT ON CONSTRAINT day_pkey
+DO NOTHING;

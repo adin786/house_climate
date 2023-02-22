@@ -7,7 +7,9 @@ Using Tado API to analyse data from smart thermostat + TRVs etc.
     - Incremental (daily) load to `PostGres` DB.
     - Configured Airflow through `docker compose`.
     - JSON schema validation using `Pydantic`.
-    - **(TODO)** Data validation using Great `Expectations` or `Pandera`. 
+    - Data transform using `Pandas`.
+    - Load to DB using `SQLAlchemy`.
+    - **(Future)** May build in data validation using Great `Expectations` or `Pandera`. 
 - Plan to aggregate heating system metrics over the full 2022 year's data.
 - Probably going to figure out some way to dashboard the results, Dash, Grafana etc.
 - May deploy to AWS etc. Currently running Airflow locally.
@@ -33,7 +35,7 @@ I used Airflow for orchestration and wrote a DAG which breaks up the extract, tr
 
 Airflow should be used as an orchestrator and not as an execution engine, so all my tasks are built using `DockerOperator` to isolate my Python code's dependencies from airflow's python environment.
 
-![Screenshot of Airflow DAG](docs/images/dag.png)
+![ETL steps in DAG](docs/images/etl_steps.excalidraw.png)
 
 
 # How to run the airflow DAG yourself

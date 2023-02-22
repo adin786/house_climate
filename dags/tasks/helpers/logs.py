@@ -33,9 +33,10 @@ def make_logger(
         logger.removeHandler(handler)
 
     logger.setLevel(level)
-    log_formatter = logging.Formatter(
-        "%(asctime)s [%(levelname)-5.5s/%(name)s] %(message)s"
-    )
+    # log_formatter = logging.Formatter(
+    #     "%(asctime)s [%(levelname)-5.5s/%(name)s] %(message)s"
+    # )
+    log_formatter = logging.Formatter("%(message)s")
 
     if path is not None:
         path = Path(path)

@@ -1,91 +1,101 @@
 import json
 import logging
+from pathlib import Path
+from typing import Union
 
+import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
-from tasks.helpers.data_models import Metadata
 from tasks.helpers.common import read_text_file
-from typing import Union
-from pathlib import Path
+from tasks.helpers.data_models import Metadata
 
 load_dotenv()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-SQL_QUERIES_DIR = Path('dags/tasks/sql_queries')
+SQL_QUERIES_DIR = Path("tasks/sql_queries")
 CONNECTION_STRING = "postgresql+psycopg2://postgres:postgres@database:5432/postgres"
 
 
-def create_tables(engine) -> None:
-    """Run this first to create new tables if needed"""
-    create_table_query = read_text_file(SQL_QUERIES_DIR / 'create_tables.sql')
-    with engine.begin() as conn:
-        logger.debug("Creating table")
-        conn.execute(text(create_table_query))
-        logger.debug("Created new table")
-
-
-def load_zone_data(engine, metadata: Metadata):
-    """Read processed csv files and insert into SQL tables"""
-    # TODO: Base my INSERT solution on https://stackoverflow.com/a/57529830
-
-    with engine.begin() as conn:
-        logger.debug("Inserting new row into table")
-        conn.execute(
-            text(
-                """
-                INSERT INTO raw_data (date, json)
-                VALUES (:d, :j)
-                ON CONFLICT (date)
-                DO NOTHING;
-                """
-            ),
-            {"d": date, "j": json.dumps(tado_data)},
-        )
-        logger.debug("Inserted new row")
-
-        conn.execute(
-            text(
-                """
-                INSERT INTO raw_data (date, json)
-                VALUES (:d, :j)
-                ON CONFLICT (date)
-                DO NOTHING;
-                """
-            ),
-            {"d": date, "j": json.dumps(tado_data)},
-        )
-        logger.debug("Passed duplicate insert")
-
-    return metadata
-
-
-def load(metadata: Metadata):
-
+def load(metadata: Metadata) -> Metadata:
     # Upload to postgres raw table
     logger.debug("Creating connection to DB")
-    engine = create_engine(
-        CONNECTION_STRING, echo=True
-    )
+    engine = create_engine(CONNECTION_STRING, echo=True)
     logger.debug("Connection to DB created")
 
-    # with engine.begin() as conn:
-    #     logger.debug('Dropping table')
-    #     conn.execute(text('DROP TABLE IF EXISTS raw_data;'))
-    #     logger.debug('Dropped existing table')
+    # Load records from csv files
+    days_records = load_records_from_csv(metadata.transform.days_all_path)
+    interior_records = load_records_from_csv(metadata.transform.interior_all_path)
+    weather_records = load_records_from_csv(metadata.transform.weather_all_path)
+    call_for_heat_records = load_records_from_csv(
+        metadata.transform.call_for_heat_all_path
+    )
 
-    # TODO: Load up all csv files from disk
+    # Create table if not exists
+    create_tables_query = read_text_file(SQL_QUERIES_DIR / "create_tables.sql")
+    create_tables(engine, create_tables_query)
 
-    # TODO: Create table if not exists, define schema
-    create_tables(engine)
+    # Perform UPSERT into table
+    # Read .sql queries and load records to db
+    insert_days_query = read_text_file(SQL_QUERIES_DIR / "insert_days.sql")
+    load_rows_to_db(engine, days_records, insert_days_query)
 
-    # TODO: Perform UPSERT into table
-    # RAW json table
+    insert_interior_query = read_text_file(SQL_QUERIES_DIR / "insert_interior.sql")
+    load_rows_to_db(engine, interior_records, insert_interior_query)
 
-    # TODO: Delete files from disk, maybe in a bash script
+    insert_weather_query = read_text_file(SQL_QUERIES_DIR / "insert_weather.sql")
+    load_rows_to_db(engine, weather_records, insert_weather_query)
 
-    metdata = load_zone_data(engine, metadata)
+    insert_call_for_heat_query = read_text_file(
+        SQL_QUERIES_DIR / "insert_call_for_heat.sql"
+    )
+    load_rows_to_db(engine, call_for_heat_records, insert_call_for_heat_query)
 
     logger.debug("Updating metadata")
     metadata_new = metadata.copy()
     return metadata_new
+
+
+def create_tables(engine, query) -> None:
+    """First create the new tables in postgres"""
+    with engine.begin() as conn:
+        tables_before = conn.execute(
+            text(
+                """
+            SELECT table_name FROM information_schema.tables
+            WHERE table_schema='public';
+            """
+            )
+        )
+        logger.debug("Tables in DB before: %s", tables_before)
+
+        logger.debug("Creating tables")
+        conn.execute(text(query))
+        logger.debug("Created new tables")
+
+        tables_after = conn.execute(
+            text(
+                """
+            SELECT table_name FROM information_schema.tables
+            WHERE table_schema='public';
+            """
+            )
+        )
+        logger.debug("Tables in DB after: %s", tables_after)
+
+
+def load_rows_to_db(engine, records: list[dict], query: str):
+    """Inserts list of dict records to a db. based on .execute_many()"""
+    logger.debug("Starting load_data_generic")
+    with engine.begin() as conn:
+        conn.execute(
+            text(query),
+            records,
+        )
+    logger.debug("Completed load_data_generic")
+
+
+def load_records_from_csv(path: str) -> list[dict]:
+    """Prepare a list of dict records by loading rows from a .csv"""
+    records = pd.read_csv(path, index_col=None).to_dict(orient="records")
+    return records
