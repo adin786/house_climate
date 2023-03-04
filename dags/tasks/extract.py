@@ -60,7 +60,6 @@ def extract(metadata: Metadata) -> Metadata:
         extracted_historic_data.append(
             HistoricDataItem(path=historic_path, zone_id=zone_id)
         )
-        time.sleep(2)
 
     # Output metadata for next task
     logger.debug("Updating metadata")

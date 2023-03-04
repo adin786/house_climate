@@ -1,4 +1,5 @@
 import os
+import time
 from pathlib import Path
 
 from tasks.extract import extract
@@ -30,4 +31,5 @@ if __name__ == "__main__":
     metadata_path.write_text(metadata.json(sort_keys=True, indent=4), encoding="utf-8")
 
     # Print to stdout for xcom push
+    time.sleep(0.1)
     logger.info(str(metadata_path))
