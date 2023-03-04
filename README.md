@@ -9,8 +9,12 @@ Using Tado API to analyse data from smart thermostat + TRVs etc.
     - JSON schema validation using `Pydantic`.
     - Data transform using `Pandas`.
     - Load to DB using `SQLAlchemy`.
-- Currently running Airflow locally through `docker compose`.
-- **(Todo)** Dashboarding the results, Dash, Grafana etc.
+- Running Airflow locally through `docker compose`.
+- Extracted tables into `Jupyter` notebook using `Pandas`
+    - Cleaned up data
+    - Merged and upsampled to 1minute intervals
+    - Stored as .csv
+- **(Todo)** Exploration, Dashboarding the results.
 - **(Todo)** Compute aggregate heating system metrics over the full 2022 year's data.
 - **(Future)** May look into anomaly detection to highlight unusual heating days.
     - May require comparison with weather data (which is already in the Tado API data).
