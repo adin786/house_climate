@@ -76,7 +76,7 @@ def extract(metadata: Metadata) -> Metadata:
     max_tries=8,
     logger=logger,
 )
-def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> TadoDataModel:
+def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> dict:
     """Extracts one zone from Tado API
 
     Args:
@@ -95,7 +95,8 @@ def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> TadoData
 
     # Parse with Pydantic for validatio of JSON schema + 24 hours check
     logger.debug(tado_data)
-    tado_data = TadoDataModel(**tado_data)
+    # Skip validation, just save to disk and 
+    # tado_data = TadoDataModel(**tado_data)
     logger.debug(f"Extraction done for zone: {zone_id}")
     return tado_data
 
@@ -140,7 +141,7 @@ def save_historic_data(
 
     # Write file
     logger.debug("Saving zone_id: %s to path: %s", zone_id, str(historic_path))
-    json_data = tado_data.json(by_alias=True, sort_keys=True, indent=4)
+    json_data = json.dumps(tado_data, sort_keys=True, indent=4)
     historic_path.write_text(json_data, encoding="utf-8")
     logger.debug("Saving completed")
     return str(historic_path)
