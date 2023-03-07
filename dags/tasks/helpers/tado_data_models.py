@@ -147,8 +147,8 @@ class Stripes(BaseModel):
 
 
 class Temperature(BaseModel):
-    celsius: float
-    fahrenheit: float
+    celsius: Optional[float]
+    fahrenheit: Optional[float]
 
 
 class Value3(BaseModel):
@@ -159,7 +159,27 @@ class Value3(BaseModel):
 class DataInterval4(BaseModel):
     from_: str = Field(..., alias="from")
     to: str
-    value: Value3
+    value: Optional[Value3]
+    # = Field(default=Value3(**{
+    #     "state":"", 
+    #     "temperature": {
+    #         "celsius": -999,
+    #         "fahrenheit": -999
+    #     }
+    # }))
+
+    class Config:
+        validate_assignment = True
+
+    @validator('value')
+    def set_value(cls, value):
+        return Value3(**{
+            "state":"UNKNOWN", 
+            "temperature": {
+                "celsius": None,
+                "fahrenheit": None
+            }
+        })
 
 
 class Condition(BaseModel):
@@ -282,9 +302,15 @@ class TadoDataModel(BaseModel):
 
     @root_validator
     def calc_duration(cls, values) -> dict:
-        start_date = pendulum.parse(values["interval"].from_)
-        end_date = pendulum.parse(values["interval"].to)
-        delta = end_date.diff(start_date)
-        logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
-        values["computed_duration"] = delta.in_hours()
+        try:
+            start_date = pendulum.parse(values["interval"].from_)
+            end_date = pendulum.parse(values["interval"].to)
+        except KeyError as exc:
+            logger.error("No interval field in the raw json data, set computed_duration=0")
+            values["computed_duration"] = 0
+            return values
+        else:
+            delta = end_date.diff(start_date)
+            logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
+            values["computed_duration"] = delta.in_hours()
         return values
