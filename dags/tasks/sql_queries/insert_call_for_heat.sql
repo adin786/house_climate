@@ -7,4 +7,6 @@ INSERT INTO call_for_heat (
 )
 VALUES (:extracted_date,:zone_id,:t_start,:t_end,:value)
 ON CONFLICT ON CONSTRAINT cal_unique
-DO NOTHING;
+DO UPDATE SET
+    value = EXCLUDED.value
+;
