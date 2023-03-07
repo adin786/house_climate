@@ -28,7 +28,7 @@ if __name__ == "__main__":
     metadata_new = validate(metadata)
     logger.debug("output metadata: %s", metadata.json())
 
-    metadata_path.write_text(metadata.json(sort_keys=True, indent=4), encoding="utf-8")
+    metadata_path.write_text(metadata_new.json(by_alias=True, sort_keys=True, indent=4), encoding="utf-8")
 
     # Print to stdout for xcom push
     time.sleep(0.1)

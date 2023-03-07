@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
-from pydantic import BaseModel, DirectoryPath
+from pydantic import BaseModel, DirectoryPath, Field
 
 
 class HistoricDataItem(BaseModel):
@@ -10,6 +10,11 @@ class HistoricDataItem(BaseModel):
 
 
 class ExtractField(BaseModel):
+    zones: list[Optional[HistoricDataItem]]
+    zones_path: Path
+
+
+class ValidateField(BaseModel):
     zones: list[Optional[HistoricDataItem]]
     zones_path: Path
 
@@ -35,6 +40,7 @@ class Metadata(BaseModel):
     base_path: DirectoryPath
     date: str
     extract: Optional[ExtractField]
+    validate_: Optional[ValidateField] = Field(alias='validate')
     transform: Optional[TransformField]
     # duration: float
 

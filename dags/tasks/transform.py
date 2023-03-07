@@ -16,7 +16,7 @@ def transform(metadata: Metadata) -> Metadata:
     logger.info(f"Starting transform func")
 
     metadata.transform = TransformField(zones=[])
-    for i in range(len(metadata.extract.zones)):
+    for i in range(len(metadata.validate_.zones)):
 
         # Transform historic data for all and save to csv. Adds path to metadata
         metadata = transform_historic_data(metadata, i)
@@ -42,8 +42,8 @@ def lookup_zone_metadata_by_id(path: Union[str, Path], zone_id: int) -> dict:
 def generate_days(
     metadata: Metadata, other_fields: pd.DataFrame, zone_id: int
 ) -> pd.DataFrame:
-    zone_metadata = lookup_zone_metadata_by_id(metadata.extract.zones_path, zone_id)
-    this_zone = get_zone_item_by_id(metadata.extract.zones, zone_id)
+    zone_metadata = lookup_zone_metadata_by_id(metadata.validate_.zones_path, zone_id)
+    this_zone = get_zone_item_by_id(metadata.validate_.zones, zone_id)
     historic_data = json.loads(read_text_file(this_zone.path))
 
     # Generate days df
@@ -134,7 +134,8 @@ def generate_weather(
 ) -> pd.DataFrame:
     """Applying transformation to"""
     weather = (
-        weather_condition.assign(zone_id=zone_id, extracted_date=metadata.date)
+        weather_condition
+        .assign(zone_id=zone_id, extracted_date=metadata.date)
         .drop(columns=["value.temperature.fahrenheit", "_timeSeriesType", "_valueType"])
         .rename(
             columns={
@@ -189,14 +190,14 @@ def generate_call_for_heat(
 def read_extracted_zone(metadata: Metadata) -> list:
     """Read zone metadatadata file into a list"""
     # TODO: probably refactor with pydantic
-    path = Path(metadata.extract.zones_path)
+    path = Path(metadata.validate_.zones_path)
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def transform_historic_data(metadata: Metadata, i):
     """Transform one zone's worth of JSON data into csv tables"""
-    path = metadata.extract.zones[i].path
-    zone_id = metadata.extract.zones[i].zone_id
+    path = metadata.validate_.zones[i].path
+    zone_id = metadata.validate_.zones[i].zone_id
     logger.info("BEGIN transform for zone_id: %s", zone_id)
     tado_data = TadoDataModel.parse_file(path)
     logger.debug("JSON data parsed to TadoDataModel")
