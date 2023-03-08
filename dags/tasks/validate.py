@@ -45,10 +45,11 @@ def validate(metadata: Metadata) -> Metadata:
                 raise exc
 
         # Check computed data duration is for a full day
-        if tado_data.computed_duration < 24:
+        this_zone_duration = int(round(tado_data.computed_duration, 0))
+        if this_zone_duration < 24:
 
             this_date = pendulum.parse(metadata.date).at(0,0,0)
-            if tado_data.computed_duration == 23 and this_date in SHORT_DAYS:
+            if this_zone_duration == 23 and this_date in SHORT_DAYS:
                 logger.warning("This date is in the SHORT_DAYS list, must be a clock change. Allowing this to proceed.")
             else:
                 raise IncompleteDataDuration(

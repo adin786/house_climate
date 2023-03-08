@@ -1,7 +1,6 @@
-import json
 import logging
 from pathlib import Path
-from typing import Union
+import os
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -14,7 +13,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 SQL_QUERIES_DIR = Path("tasks/sql_queries")
-CONNECTION_STRING = "postgresql+psycopg2://postgres:postgres@database:5432/postgres"
+CONNECTION_STRING = os.environ["DB_CONNECTION_STRING"]
 
 
 def load(metadata: Metadata) -> Metadata:

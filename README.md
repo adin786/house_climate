@@ -2,30 +2,56 @@
 Using Tado API to analyse data from smart thermostat + TRVs etc.
 
 ## High-level summary
-- Developed an ETL pipeline using `Airflow`.
-    - Extract from `PyTado` API using `backoff` to handle retries
-    - Incremental (daily) load to `Postgres` DB.
-    - Configured Airflow through `docker compose`.
-    - JSON schema validation using `Pydantic`.
-    - Data transform using `Pandas`.
-    - Load to DB using `SQLAlchemy`.
-- Running Airflow locally through `docker compose`.
-- Extracted tables into `Jupyter` notebook using `Pandas`
-    - Cleaned up data
-    - Merged and upsampled to 1minute intervals
-    - Stored as .csv
-- **(Todo)** Exploration, Dashboarding the results.
-- **(Todo)** Compute aggregate heating system metrics over the full 2022 year's data.
-- **(Future)** May look into anomaly detection to highlight unusual heating days.
-    - May require comparison with weather data (which is already in the Tado API data).
-- **(Future)** May build in data validation using Great `Expectations` or `Pandera`. 
+- Developed an **data pipeline (ETL)** using `Airflow`
+    - Running an Airflow instance locally (via `docker compose`)
+    - Custom DAG backfilled over full 2022 year of historic data
+    - Incremental (daily) load to `Postgres` DB
+    - API requests using `PyTado` ([link to repo](https://github.com/wmalgadey/PyTado))
+    - JSON schema validation using `Pydantic`
+    - Data transform using `Pandas`
+    - Read/write to DB using `SQLAlchemy`
+- Extracted tables into `Jupyter` notebook environment for exploration
+- `.py` scripts written for preprocessing pipeline
+    - Data cleaning, deduplication etc
+    - Merged and resampled at unified rate 1 minute intervals (1/60 Hz)
+- **[IN-PROGRESS]** 
+    - Tidy Visualisations, Dashboarding the results
+    - Compute aggregate heating system metrics over the full 2022 year's data
+    - Anomaly detection to highlight unusual heating days. E.g. is heating usage weather dependent or not?
 
 ---
 
 # Prerequisites
-- Docker is installed
-- VSCode is installed with Dev Containers ext. (for development only)
-- ...
+- Docker installed
+- VSCode installed with Dev Containers ext.
+
+Some environment variables are required to run the Airflow dag
+
+```bash
+AIRFLOW_VAR_TADO_USERNAME=...
+AIRFLOW_VAR_TADO_PASSWORD=...
+AIRFLOW_UID=...
+AIRFLOW_IMAGE_NAME=...
+AIRFLOW_DB_CONNECTION_STRING=...
+POSTGRES_USER=...
+POSTGRES_PASSWORD=...
+```
+
+# Data pipeline / ETL
+
+I used Airflow for task orchestration and wrote a DAG which breaks up the extract, transform, load steps into discrete operations with clear dependencies.
+
+![ETL steps in DAG](docs/images/etl_steps.excalidraw.png)
+
+Airflow should be used as an orchestrator and not as an execution engine, so all my tasks are built using `DockerOperator` to isolate my Python code's dependencies from airflow's python environment.
+
+With enough data validation and error handling I was able to run this DAG **with a backfill** for the full 2022 calendar year.
+
+![DAG run calendar](docs/images/dag_calendar.png)
+
+In general 
+
+![](docs/images/dag_task_durations.png)
 
 # Docker containers
 
@@ -33,44 +59,20 @@ All elements of this project were designed to be run inside docker containers. M
 
 My `docker-compose.yaml` is a customised version of the [airflow template](https://airflow.apache.org/docs/apache-airflow/2.5.0/docker-compose.yaml) and configures all the airflow services (scheduler, webserver etc) in addition to my Postgres local database (I might move this to an RDS instance later).
 
-# Data pipeline - *ETL, airflow*
-
-I used Airflow for orchestration and wrote a DAG which breaks up the extract, transform, load steps into discrete operations with clear dependencies.
-
-Airflow should be used as an orchestrator and not as an execution engine, so all my tasks are built using `DockerOperator` to isolate my Python code's dependencies from airflow's python environment.
-
-![ETL steps in DAG](docs/images/etl_steps.excalidraw.png)
-
-
 # How to run the airflow DAG yourself
 A `Makefile` is provided with several helpful commands for spinning up the airflow services on your machine.
 
-## Build the custom worker image
-In order to use the DockerOperator in my ETL DAG, we need to build a Docker image tagged "docker_image_task".  Use the command:
+## Spin up and down all containers
+Using docker compose we can spin up the Airflow containers and postgres DB etc using the commands below:
 
 ```bash
+# Init and spin up the containers
 make containers_build
-```
-
-## Init the Airflow backend DB
-Using docker compose we can spin up the first (of several) Airflow related containers with the command:
-
-```bash
 make containers_init
-```
-
-## Spin up all containers to run Airflow
-Using docker compose again we can now spin up the other Airflow containers such as webserver, scheduler etc using the command:
-
-```bash
 make containers_up
-```
 
-At this point, the Airflow web UI should become available on http://localhost:8080
-
-## Spin down all containers
-Shut down Airflow and stop the containers
-
-```bash
+# Spin down the containers
 make containers_down
 ```
+
+The Airflow web UI should be available at http://localhost:8080

@@ -109,6 +109,7 @@ def tado_etl_dag():
         ],
         environment={
             "XCOM_PULL": "{{ ti.xcom_pull('transform_task') }}",
+            "DB_CONNECTION_STRING": "{{ var.value.DB_CONNECTION_STRING }}",
         },
         auto_remove=True,
         mount_tmp_dir=False,

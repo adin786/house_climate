@@ -311,6 +311,6 @@ class TadoDataModel(BaseModel):
             return values
         else:
             delta = end_date.diff(start_date)
-            logger.debug(f"Data duration {delta.in_hours()} H ({delta.in_minutes()} min)")
-            values["computed_duration"] = delta.in_hours()
+            logger.debug(f"Data duration {delta.total_hours()} H)")
+            values["computed_duration"] = delta.total_hours()
         return values
