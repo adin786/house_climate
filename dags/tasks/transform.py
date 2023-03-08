@@ -134,8 +134,7 @@ def generate_weather(
 ) -> pd.DataFrame:
     """Applying transformation to"""
     weather = (
-        weather_condition
-        .assign(zone_id=zone_id, extracted_date=metadata.date)
+        weather_condition.assign(zone_id=zone_id, extracted_date=metadata.date)
         .drop(columns=["value.temperature.fahrenheit", "_timeSeriesType", "_valueType"])
         .rename(
             columns={

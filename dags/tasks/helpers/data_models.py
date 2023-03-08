@@ -40,7 +40,7 @@ class Metadata(BaseModel):
     base_path: DirectoryPath
     date: str
     extract: Optional[ExtractField]
-    validate_: Optional[ValidateField] = Field(alias='validate')
+    validate_: Optional[ValidateField] = Field(alias="validate")
     transform: Optional[TransformField]
     # duration: float
 

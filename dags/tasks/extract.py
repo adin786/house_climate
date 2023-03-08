@@ -95,7 +95,7 @@ def extract_zone_data(t: Tado, zones: list, zone_id: str, date: str) -> dict:
 
     # Parse with Pydantic for validatio of JSON schema + 24 hours check
     logger.debug(tado_data)
-    # Skip validation, just save to disk and 
+    # Skip validation, just save to disk and
     # tado_data = TadoDataModel(**tado_data)
     logger.debug(f"Extraction done for zone: {zone_id}")
     return tado_data

@@ -161,7 +161,7 @@ class DataInterval4(BaseModel):
     to: str
     value: Optional[Value3]
     # = Field(default=Value3(**{
-    #     "state":"", 
+    #     "state":"",
     #     "temperature": {
     #         "celsius": -999,
     #         "fahrenheit": -999
@@ -171,15 +171,11 @@ class DataInterval4(BaseModel):
     class Config:
         validate_assignment = True
 
-    @validator('value')
+    @validator("value")
     def set_value(cls, value):
-        return Value3(**{
-            "state":"UNKNOWN", 
-            "temperature": {
-                "celsius": None,
-                "fahrenheit": None
-            }
-        })
+        return Value3(
+            **{"state": "UNKNOWN", "temperature": {"celsius": None, "fahrenheit": None}}
+        )
 
 
 class Condition(BaseModel):
@@ -306,7 +302,9 @@ class TadoDataModel(BaseModel):
             start_date = pendulum.parse(values["interval"].from_)
             end_date = pendulum.parse(values["interval"].to)
         except KeyError as exc:
-            logger.error("No interval field in the raw json data, set computed_duration=0")
+            logger.error(
+                "No interval field in the raw json data, set computed_duration=0"
+            )
             values["computed_duration"] = 0
             return values
         else:
