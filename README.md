@@ -1,15 +1,17 @@
-# Tado API Analysis Project
-Using Tado API to analyse data from smart thermostat + TRVs etc.
+# Smart Home - Heating Data Project
+
+Analysing data from smart thermostat using Tado API.
 
 ## High-level summary
-- Developed an **data pipeline (ETL)** using `Airflow`
-    - Running an Airflow instance locally (via `docker compose`)
-    - Custom DAG backfilled over full 2022 year of historic data
-    - Incremental (daily) load to `Postgres` DB
+
+- **Data pipeline (ETL)** using `Airflow`
+    - Running Airflow locally (via `docker compose`)
+    - DAG backfill over full 2022 year's data
+    - Daily load (upsert) to `Postgres` DB
     - API requests using `PyTado` ([link to repo](https://github.com/wmalgadey/PyTado))
     - JSON schema validation using `Pydantic`
-    - Data transform using `Pandas`
-    - Read/write to DB using `SQLAlchemy`
+    - Transform + normalisimg JSON using `Pandas`
+    - DB operations using `SQLAlchemy (core)`
 - Extracted tables into `Jupyter` notebook environment for exploration
 - `.py` scripts written for preprocessing pipeline
     - Data cleaning, deduplication etc
