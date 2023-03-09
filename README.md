@@ -39,21 +39,24 @@ POSTGRES_USER=...
 POSTGRES_PASSWORD=...
 ```
 
-# Data pipeline / ETL
+# Data pipeline - Airflow
 
-I used Airflow for task orchestration and wrote a DAG which breaks up the extract, transform, load steps into discrete operations with clear dependencies.
+I used Airflow for task orchestration and wrote a DAG which breaks up the extract, transform, load (ETL) steps into discrete operations with clear dependencies.
 
 ![ETL steps in DAG](docs/images/etl_steps.excalidraw.png)
 
-Airflow should be used as an orchestrator and not as an execution engine, so all my tasks are built using `DockerOperator` to isolate my Python code's dependencies from airflow's python environment.
+Airflow is suited to orchestration and not execution engine, so all my tasks are built using `DockerOperator` to isolate each task's Python environment and emulate running on multiple worker machines.
 
-With enough data validation and error handling I was able to run this DAG **with a backfill** for the full 2022 calendar year.
+Intermediate results are saved to a shared/mounted folder and metadata tracked using XCOMs.
+
+With enough **data validation** and error handling I was able to run this DAG **with a backfill** for the full 2022 calendar year.
 
 ![DAG run calendar](docs/images/dag_calendar.png)
 
-In general 
+Run duration is "*dominated by data extraction time** as we request historical data for all "zones" with a delay between requests. 
+During backfill each daily DAG run duration stabilised to <20s.
 
-![](docs/images/dag_task_durations.png)
+![Airfloe task durations](docs/images/dag_task_durations.png)
 
 # Docker containers
 
@@ -61,10 +64,12 @@ All elements of this project were designed to be run inside docker containers. M
 
 My `docker-compose.yaml` is a customised version of the [airflow template](https://airflow.apache.org/docs/apache-airflow/2.5.0/docker-compose.yaml) and configures all the airflow services (scheduler, webserver etc) in addition to my Postgres local database (I might move this to an RDS instance later).
 
-# How to run the airflow DAG yourself
+# Makefile
+
 A `Makefile` is provided with several helpful commands for spinning up the airflow services on your machine.
 
 ## Spin up and down all containers
+
 Using docker compose we can spin up the Airflow containers and postgres DB etc using the commands below:
 
 ```bash
