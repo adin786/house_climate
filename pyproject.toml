@@ -3,8 +3,8 @@ requires= ["setuptools >= 61.0.0", "setuptools_scm[toml]>=7.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tasks"
-description = "Packaged up helper functions for airflow dags"
+name = "house_climate"
+description = "Packaged code for house_climate project.  Analysing Tado Smart heating API data ingested using Airflow"
 readme = "README.md"
 requires-python = ">=3.9.13"
 dynamic = ["version"]
@@ -12,8 +12,8 @@ dynamic = ["version"]
 [tool.setuptools_scm]
 
 [tool.setuptools.packages.find]
-where = ["dags"]
-include = ["tasks*"]
+where = ["src", "dags"]
+include = ["house_climate", "tasks"]
 exclude = [
     "*.json"
 ]
