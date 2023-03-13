@@ -1,15 +1,17 @@
-# Tado API Analysis Project
-Using Tado API to analyse data from smart thermostat + TRVs etc.
+# Smart Home - Heating Data Project
+
+Analysing data from smart thermostat using Tado API.
 
 ## High-level summary
-- Developed an **data pipeline (ETL)** using `Airflow`
-    - Running an Airflow instance locally (via `docker compose`)
-    - Custom DAG backfilled over full 2022 year of historic data
-    - Incremental (daily) load to `Postgres` DB
+
+- **Data pipeline (ETL)** using `Airflow`
+    - Running Airflow locally (via `docker compose`)
+    - DAG backfill over full 2022 year's data
+    - Daily load (upsert) to `Postgres` DB
     - API requests using `PyTado` ([link to repo](https://github.com/wmalgadey/PyTado))
     - JSON schema validation using `Pydantic`
-    - Data transform using `Pandas`
-    - Read/write to DB using `SQLAlchemy`
+    - Transform + normalisimg JSON using `Pandas`
+    - DB operations using `SQLAlchemy (core)`
 - Extracted tables into `Jupyter` notebook environment for exploration
 - `.py` scripts written for preprocessing pipeline
     - Data cleaning, deduplication etc
@@ -37,21 +39,24 @@ POSTGRES_USER=...
 POSTGRES_PASSWORD=...
 ```
 
-# Data pipeline / ETL
+# Data pipeline - Airflow
 
-I used Airflow for task orchestration and wrote a DAG which breaks up the extract, transform, load steps into discrete operations with clear dependencies.
+I used Airflow for task orchestration and wrote a DAG which breaks up the extract, transform, load (ETL) steps into discrete operations with clear dependencies.
 
 ![ETL steps in DAG](docs/images/etl_steps.excalidraw.png)
 
-Airflow should be used as an orchestrator and not as an execution engine, so all my tasks are built using `DockerOperator` to isolate my Python code's dependencies from airflow's python environment.
+Airflow is suited to orchestration and not execution engine, so all my tasks are built using `DockerOperator` to isolate each task's Python environment and emulate running on multiple worker machines.
 
-With enough data validation and error handling I was able to run this DAG **with a backfill** for the full 2022 calendar year.
+Intermediate results are saved to a shared/mounted folder and metadata tracked using XCOMs.
+
+With enough **data validation** and error handling I was able to run this DAG **with a backfill** for the full 2022 calendar year.
 
 ![DAG run calendar](docs/images/dag_calendar.png)
 
-In general 
+Run duration is "*dominated by data extraction time** as we request historical data for all "zones" with a delay between requests. 
+During backfill each daily DAG run duration stabilised to <20s.
 
-![](docs/images/dag_task_durations.png)
+![Airfloe task durations](docs/images/dag_task_durations.png)
 
 # Docker containers
 
@@ -59,10 +64,12 @@ All elements of this project were designed to be run inside docker containers. M
 
 My `docker-compose.yaml` is a customised version of the [airflow template](https://airflow.apache.org/docs/apache-airflow/2.5.0/docker-compose.yaml) and configures all the airflow services (scheduler, webserver etc) in addition to my Postgres local database (I might move this to an RDS instance later).
 
-# How to run the airflow DAG yourself
+# Makefile
+
 A `Makefile` is provided with several helpful commands for spinning up the airflow services on your machine.
 
 ## Spin up and down all containers
+
 Using docker compose we can spin up the Airflow containers and postgres DB etc using the commands below:
 
 ```bash
