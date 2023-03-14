@@ -8,6 +8,9 @@ description = "Packaged code for house_climate project.  Analysing Tado Smart he
 readme = "README.md"
 requires-python = ">=3.9.13"
 dynamic = ["version"]
+dependencies = [
+    "pyarrow"
+]
 
 [tool.setuptools_scm]
 

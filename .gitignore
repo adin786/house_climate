@@ -135,3 +135,4 @@ logs
 **/*.csv
 **/*.json
 dags/tasks/tests/test_data/*
+data/*
