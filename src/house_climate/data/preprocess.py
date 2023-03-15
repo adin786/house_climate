@@ -1,13 +1,13 @@
-import pandas as pd
-from pandas import DataFrame
-from sqlalchemy import create_engine, text
-import seaborn as sns
-from pathlib import Path
-from dotenv import load_dotenv
 import logging
 import os
+from pathlib import Path
 from textwrap import dedent
 
+import pandas as pd
+import seaborn as sns
+from dotenv import load_dotenv
+from pandas import DataFrame
+from sqlalchemy import create_engine, text
 
 load_dotenv()
 logging.basicConfig(
@@ -16,7 +16,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger('root')
 CONNECTION_STRING = os.environ["DB_CONNECTION_STRING"]
-OUTPUT_DIR = Path.cwd() / "data/interim"
+DATA_DIR = Path.cwd() / "data/interim"
+SAVE_PATH = DATA_DIR / "01_preprocessed.parquet"
 START_DATE = "2022-01-01"
 END_DATE = "2023-01-01"
 
@@ -49,7 +50,7 @@ def upsample_interior(interior: DataFrame) -> DataFrame:
         .loc[:, ["zone_id", "humidity_unit", "temperature_unit"]]
     )
 
-    interior = (
+    new_interior = (
         pd.merge(
             left=interpolated_num_cols,
             right=interpolated_other_cols,
@@ -59,7 +60,7 @@ def upsample_interior(interior: DataFrame) -> DataFrame:
         .ffill()
         .astype({"zone_id": "Int8"})
     )
-    return interior
+    return new_interior
 
 
 def filter_by_time_ranges(df):
@@ -252,10 +253,9 @@ if __name__ == "__main__":
     merged = merge_days(int_heat_weather, days)
 
     # Save to disk
-    save_path = OUTPUT_DIR / "cleaned_resampled_and_merged.parquet"
-    logger.info('Saving to %s', save_path)
-    merged.to_parquet(save_path)
-    logger.info("Saved: %.3f MB", save_path.stat().st_size / 1024**2)
+    logger.info('Saving to %s', SAVE_PATH)
+    merged.to_parquet(SAVE_PATH)
+    logger.info("Saved: %.3f MB", SAVE_PATH.stat().st_size / 1024**2)
 
     logger.info('ENDING SCRIPT')
 
