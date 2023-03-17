@@ -136,3 +136,6 @@ logs
 **/*.json
 dags/tasks/tests/test_data/*
 data/*
+backups/*
+*.zip
+*.tar

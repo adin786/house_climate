@@ -12,9 +12,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger('root')
 REPO_ROOT = Path.cwd()
-DATA_DIR = REPO_ROOT / "data/interim"
-INPUT_PATH = DATA_DIR / "01_preprocessed.parquet"
-SAVE_PATH = DATA_DIR / "02_with_features.parquet"
+DATA_DIR = REPO_ROOT / "data"
+INPUT_PATH = DATA_DIR / "interim" / "preprocessed.parquet"
+SAVE_PATH = DATA_DIR / "processed" / "with_features.parquet"
 
 
 def add_features(df):

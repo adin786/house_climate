@@ -41,14 +41,14 @@ containers_down:
 
 .PHONY: data_interim data_features data
 
-data/interim/01_preprocessed.parquet:
-	python -m house_climate.data.preprocess
+data/interim/%:
+	python -m house_climate.data.preprocess	
 
-data/interim/02_with_features.parquet: data/interim/01_preprocessed.parquet
+data_interim: data/interim/%
 
-data_interim: data/interim/01_preprocessed.parquet
+data/processed/%: data_interim
 	python -m house_climate.data.add_features
 
-data_features: data/interim/02_with_features.parquet
+data_features: data/processed/%
 
 data: data_interim data_features

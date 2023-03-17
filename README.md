@@ -83,3 +83,18 @@ make containers_down
 ```
 
 The Airflow web UI should be available at http://localhost:8080
+
+---
+
+## Just some handy commands
+```bash
+
+# Commands for getting into psql terminal
+docker exec -it <container_name> bash   # Connect to bash inside postgres container
+psql -U postgres -d postgres            # Connect to database in psql shell
+\l                                      # List databases
+\dt                                     # List tables
+pg_dump -U postgres -W -F t postgres > /backups/house_climate_pg_dump.tar # Create backup
+aws s3 sync backups s3://house-climate  # Upload to S3 bucket
+
+```
